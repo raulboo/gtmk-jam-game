@@ -40,6 +40,8 @@ __meta__ = {
 curve = SubResource( 2 )
 
 [node name="Trackpoint" type="PathFollow2D" parent="Railway"]
+position = Vector2( 1.18182, -1.96533 )
+rotation = 0.000495443
 script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="Railway/Trackpoint"]
