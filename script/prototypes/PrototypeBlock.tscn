@@ -1,9 +1,15 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://script/RigidBody2D.gd" type="Script" id=1]
 [ext_resource path="res://script/prototypes/PlayerBlock.gd" type="Script" id=2]
 [ext_resource path="res://script/prototypes/Piece.gd" type="Script" id=3]
 [ext_resource path="res://script/prototypes/PieceState.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 16, 12 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 16, 16 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -11,22 +17,19 @@ extents = Vector2( 16, 16 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 16 )
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 16, 12 )
-
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 12, 16 )
-
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 560, 6.92815 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 48, 456 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 128, 24 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 240, 16 )
+
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 16, 16 )
 
 [node name="Level" type="Node2D"]
@@ -34,6 +37,62 @@ extents = Vector2( 16, 16 )
 [node name="Player" type="KinematicBody2D" parent="."]
 position = Vector2( 568, 576 )
 script = ExtResource( 2 )
+
+[node name="RopePiece" type="CollisionShape2D" parent="Player"]
+position = Vector2( 0, -68 )
+shape = SubResource( 3 )
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Player/RopePiece"]
+position = Vector2( 0, 4 )
+
+[node name="ColorRect" type="ColorRect" parent="Player/RopePiece"]
+margin_left = -16.0
+margin_top = -12.0
+margin_right = 16.0
+margin_bottom = 20.0
+color = Color( 1, 0.403922, 0.00784314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LegPiece" type="CollisionShape2D" parent="Player"]
+position = Vector2( 32, -32 )
+shape = SubResource( 4 )
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Player/LegPiece"]
+
+[node name="ColorRect" type="ColorRect" parent="Player/LegPiece"]
+visible = false
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+color = Color( 0.00784314, 0.733333, 0.788235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Player"]
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+color = Color( 0.00784314, 0.305882, 0.4, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Player"]
+margin_left = -16.0
+margin_top = -48.0
+margin_right = 16.0
+margin_bottom = -16.0
+color = Color( 0.784314, 0.552941, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource( 1 )
@@ -48,48 +107,27 @@ gravity_scale = 9.0
 can_sleep = false
 script = ExtResource( 1 )
 
-[node name="Pieces" type="Node2D" parent="Player"]
-
-[node name="RopePiece" type="StaticBody2D" parent="Player/Pieces"]
-position = Vector2( 0, -64 )
-script = ExtResource( 4 )
-
-[node name="Sprite" type="Sprite" parent="Player/Pieces/RopePiece"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Pieces/RopePiece"]
-position = Vector2( 0, -4 )
-shape = SubResource( 7 )
-
-[node name="LegPiece" type="StaticBody2D" parent="Player/Pieces"]
-position = Vector2( 32, -32 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Player/Pieces/LegPiece"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Pieces/LegPiece"]
-position = Vector2( 4, 0 )
-shape = SubResource( 8 )
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="Floor" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 504, 600 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( -48, 456 )
-shape = SubResource( 4 )
+shape = SubResource( 6 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 1072, 448 )
-shape = SubResource( 4 )
+shape = SubResource( 6 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 128, 336 )
-shape = SubResource( 5 )
+shape = SubResource( 7 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 840, 328 )
+shape = SubResource( 9 )
 
 [node name="Piece" type="StaticBody2D" parent="." groups=[
 "jigsaw_piece",
@@ -102,4 +140,20 @@ __meta__ = {
 type = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Piece"]
-shape = SubResource( 6 )
+rotation = -1.5708
+shape = SubResource( 8 )
+one_way_collision = true
+
+[node name="Piece2" type="StaticBody2D" parent="." groups=[
+"jigsaw_piece",
+]]
+position = Vector2( 848, 432 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piece2"]
+rotation = 3.14159
+shape = SubResource( 8 )
+one_way_collision = true

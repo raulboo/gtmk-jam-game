@@ -11,7 +11,7 @@ onready var velocity := Vector2(0, 0)
 func _physics_process(delta):
 	velocity.y += gravity_current
 	
-	if Input.is_action_pressed("Mouse_left") and $Pieces/RopePiece.is_active:
+	if Input.is_action_pressed("Mouse_left") and $RopePiece.is_active:
 		is_on_click_mode = true
 	elif is_on_floor():
 		is_on_click_mode = false
@@ -42,4 +42,4 @@ func _physics_process(delta):
 		var object = get_slide_collision(i).collider
 		if object.is_in_group("jigsaw_piece"):
 			object.fit_in_character()
-			$Pieces.get_child(object.type).connect_piece()
+			self.get_child(object.type).connect_piece()
