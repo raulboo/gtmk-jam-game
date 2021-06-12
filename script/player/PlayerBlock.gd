@@ -1,3 +1,4 @@
+class_name Player
 extends KinematicBody2D
 
 signal dead
@@ -49,6 +50,10 @@ func die():
 
 
 func on_piece_attached(type):
+	match type:
+		"LEG":
+			print("AAAAAAAAAAAAAAAAAA")
+	
 	print("attached ", type)
 
 
