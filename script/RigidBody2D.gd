@@ -7,6 +7,7 @@ func get_input():
 	if Input.is_action_just_released("Mouse_left") and gravity_scale < 0:
 		force.x = (get_global_mouse_position().x - position.x)
 		gravity_scale = 9
+		
 func _physics_process(delta):
 	applied_force = force
 	get_input()

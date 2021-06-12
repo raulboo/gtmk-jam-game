@@ -9,10 +9,11 @@ func _physics_process(delta):
 	
 	velocity.x = ((- int(Input.is_action_pressed("move_left")) 
 				+ int(Input.is_action_pressed("move_right"))) * 300)
-	if Input.is_action_just_pressed("jump"):
+	var is_lforr = is_on_floor()
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y -= 1000
 	
-	velocity = move_and_slide(velocity, Vector2(0, 1))
+	velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
 func _on_Trackpoint_changed_position(trackpoint_position):

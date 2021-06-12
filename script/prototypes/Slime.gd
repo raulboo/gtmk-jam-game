@@ -11,7 +11,7 @@ func _physics_process(delta):
 	velocity.x = ((- int(Input.is_action_pressed("move_left")) 
 				+ int(Input.is_action_pressed("move_right"))) * 300)
 				
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y -= jump_velocity
 	
 	velocity = move_and_slide(velocity, Vector2(0, 1))
