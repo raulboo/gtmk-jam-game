@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal dead
+
 export(int) var gravity_acceleration = 30
 
 var is_on_click_mode = false
@@ -40,6 +42,14 @@ func _physics_process(delta):
 	
 	for i in get_slide_count():
 		var object = get_slide_collision(i).collider
+		
 		if object.is_in_group("jigsaw_piece"):
 			object.fit_in_character()
 			self.get_child(object.type).connect_piece()
+			
+		elif object.is_in_group("hostile"):
+			self.die()
+			
+			
+func die():
+	emit_signal("dead")

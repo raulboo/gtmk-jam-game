@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-enum Pieces {ROPE, LEG, GRAVITY, PIECE}
+enum Pieces {ROPE, LEG, GRAVITY, STICK}
 
 export(Pieces) var type
 
