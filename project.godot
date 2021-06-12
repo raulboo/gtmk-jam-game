@@ -17,12 +17,12 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://script/player/PlayerBlock.gd"
+"path": "res://script/player/PlayerMovement.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Node2D",
 "class": "PowerPiece",
 "language": "GDScript",
-"path": "res://script/levels/PowerPiece.gd"
+"path": "res://script/powerup_system/PowerPiece.gd"
 } ]
 _global_script_class_icons={
 "Level": "",

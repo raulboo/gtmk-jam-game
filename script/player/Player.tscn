@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://script/player/PlayerBlock.gd" type="Script" id=1]
-[ext_resource path="res://script/player/PieceController.gd" type="Script" id=2]
+[ext_resource path="res://script/player/PlayerMovement.gd" type="Script" id=1]
+[ext_resource path="res://script/powerup_system/PieceController.gd" type="Script" id=2]
 [ext_resource path="res://assets/character_runing_animation_2.png" type="Texture" id=3]
+[ext_resource path="res://script/powerup_system/PlayerPowerupManager.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 32 )
@@ -73,7 +74,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"Players",
+]]
 position = Vector2( 728, 512 )
 script = ExtResource( 1 )
 
@@ -118,8 +121,12 @@ position = Vector2( 0, -16 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 14 )
 animation = "idle"
-frame = 1
 playing = true
 
-[connection signal="piece_attached" from="PieceController" to="." method="on_piece_attached"]
-[connection signal="piece_de_attached" from="PieceController" to="." method="on_piece_de_attached"]
+[node name="PieceHolder" type="Node2D" parent="."]
+
+[node name="PlayerPowerupManager" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[connection signal="piece_attached" from="PieceController" to="PlayerPowerupManager" method="on_piece_attached"]
+[connection signal="piece_de_attached" from="PieceController" to="PlayerPowerupManager" method="on_piece_de_attached"]
