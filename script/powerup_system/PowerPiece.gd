@@ -7,7 +7,7 @@ var power_type
 var spawn_position
 var is_attached = false
 var attached_slot = -1
-var is_active = true
+
 onready var size = $Area2D/AreaCollision.shape.get("extents") * 2
 
 func _ready():
@@ -27,6 +27,9 @@ func set_piece_position(position):
 #change global position of this piece
 func move_to (pos):
 	self.global_position = pos
+
+func move_to_spawn ():
+	self.global_position = spawn_position
 	
 func set_attached(index):
 	is_attached = true

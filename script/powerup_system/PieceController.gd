@@ -41,7 +41,8 @@ func de_attach_piece(piece):
 	if attached_pieces.find(piece) != -1:
 		slot_dict[piece.attached_slot][1] = false
 		piece.change_parent(game_scene)
-		piece.set_de_attached()			
+		piece.set_de_attached()		
+		piece.move_to_spawn()	
 		attached_pieces.erase(piece) 
 		emit_signal("piece_de_attached", piece.power_type)	
 
