@@ -12,7 +12,7 @@ func transfer_pieces(player):
 	var pieces_count = piece_controller.attached_pieces.size()
 
 	for piece in piece_controller.attached_pieces:
-		piece.is_active = false
+		piece.is_attached = false
 
 	emit_signal("reached_end", pieces_count)
 	print("reached end with ", pieces_count, " pieces")

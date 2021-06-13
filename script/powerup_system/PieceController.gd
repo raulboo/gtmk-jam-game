@@ -5,7 +5,7 @@ const MAX_PIECES = 3
 
 onready var player = get_parent()
 onready var game_scene = get_node("/root/Level") #TODO: keep an eye on this
-export(float) var sprite_piece_size = 40
+export(float) var sprite_piece_size = 32
 
 var attached_pieces = [] #current player pieces are stored here
 var slot_dict = {} #hard coded piece positions are stored inside

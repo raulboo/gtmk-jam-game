@@ -1,9 +1,19 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://script/player/PlayerMovement.gd" type="Script" id=1]
 [ext_resource path="res://script/powerup_system/PieceController.gd" type="Script" id=2]
 [ext_resource path="res://assets/character_runing_animation_2.png" type="Texture" id=3]
 [ext_resource path="res://script/powerup_system/PlayerPowerupManager.gd" type="Script" id=4]
+[ext_resource path="res://assets/background.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 8, 16 )
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 16, 16 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 32 )
@@ -80,9 +90,34 @@ animations = [ {
 position = Vector2( 728, 512 )
 script = ExtResource( 1 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/ParallaxBackground"]
+position = Vector2( 728, 512 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 5 )
+
+[node name="UpperCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -64 )
+shape = SubResource( 15 )
+disabled = true
+
+[node name="BackCollision" type="CollisionShape2D" parent="."]
+position = Vector2( -32, -32 )
+shape = SubResource( 16 )
+disabled = true
+
+[node name="FrontCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 32, -32 )
+shape = SubResource( 17 )
+disabled = true
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -64 )
 current = true
+zoom = Vector2( 1.5, 1.5 )
 smoothing_enabled = true
 smoothing_speed = 10.0
 

@@ -1,7 +1,7 @@
 extends Node2D
 class_name PowerPiece
 
-enum PieceType {ROPE, LEG, GRAVITY, STICK}
+enum PieceType {ROPE, LEGS, GRAVITY, STICK}
 export(PieceType) var enum_type
 var power_type
 var spawn_position
@@ -12,6 +12,7 @@ onready var size = $Area2D/AreaCollision.shape.get("extents") * 2
 
 func _ready():
 	power_type = PieceType.keys()[enum_type]
+	$Sprite.play(power_type)
 	spawn_position = self.global_position
 
 #change this piece parent (probably call with deffer_call)
