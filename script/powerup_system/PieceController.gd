@@ -28,7 +28,7 @@ func _ready():
 	
 #add a new piece to the player
 func attach_piece(piece):
-	var slot_index = get_avaiable_slot()
+	var slot_index = get_avaiable_slot(piece)
 	if slot_index == -1:
 		return
 
@@ -38,7 +38,6 @@ func attach_piece(piece):
 		piece.set_piece_position(slot_dict[slot_index][0], slot_index)
 		slot_dict[slot_index][1] = true
 		piece.set_attached(slot_index)
-		
 		attached_pieces.push_back(piece)
 		emit_signal("piece_attached", piece.power_type)
 		
@@ -50,8 +49,8 @@ func de_attach_piece(piece):
 		piece.set_de_attached()		
 		piece.move_to_spawn()	
 		attached_pieces.erase(piece) 
-		emit_signal("piece_de_attached", piece.power_type)	
-
+		emit_signal("piece_de_attached", piece.power_type)
+			
 #search and removes the 'name' piece
 func de_attach_piece_string(name: String):
 	for piece in attached_pieces:
@@ -64,7 +63,16 @@ func de_attach_and_move(piece, pos):
 	piece.move_to(pos)
 
 #returns the index of an available slot, if there are no slots available it returns -1
-func get_avaiable_slot():
+func get_avaiable_slot(piece):
+	if piece.power_type == "LEGS" && slot_dict[RIGHT_SLOT][1] == false:
+		return RIGHT_SLOT
+
+	elif piece.power_type == "GRAVITY" && slot_dict[UP_SLOT][1] == false:
+		return UP_SLOT
+
+	elif (piece.power_type == "ROPE" || piece.power_type == "STICK") && slot_dict[LEFT_SLOT][1] == false:
+		return LEFT_SLOT
+
 	for i in slot_dict.size():
 		if slot_dict[i][1] == false:
 			return i

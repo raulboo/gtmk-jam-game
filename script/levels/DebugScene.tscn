@@ -22,15 +22,19 @@ tile_data = PoolIntArray( 524305, 0, 4, 524306, 0, 196609, 524307, 0, 196609, 52
 [node name="FinalPole" parent="." instance=ExtResource( 4 )]
 position = Vector2( 472, 560 )
 
-[node name="PowerUp" parent="FinalPole" instance=ExtResource( 5 )]
-position = Vector2( 64, 8 )
+[node name="PowerUp" parent="." instance=ExtResource( 5 )]
+position = Vector2( 536, 568 )
 
-[node name="PowerUp2" parent="FinalPole" instance=ExtResource( 5 )]
-position = Vector2( 128, 8 )
+[node name="PowerUp2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 600, 568 )
 enum_type = 1
 
-[node name="PowerUp3" parent="FinalPole" instance=ExtResource( 5 )]
-position = Vector2( 184, 8 )
+[node name="PowerUp3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 656, 568 )
 enum_type = 2
+
+[node name="PowerUp4" parent="." instance=ExtResource( 5 )]
+position = Vector2( 696, 568 )
+enum_type = 3
 
 [connection signal="reached_end" from="FinalPole" to="." method="_on_FinalPole_reached_end"]
