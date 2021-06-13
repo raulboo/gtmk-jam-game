@@ -43,36 +43,43 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Tutorials"]
-margin_left = 304.0
-margin_top = 232.0
-margin_right = 576.0
-margin_bottom = 264.0
+margin_left = 312.0
+margin_top = 168.0
+margin_right = 560.0
+margin_bottom = 270.0
 custom_fonts/font = ExtResource( 7 )
-text = "A and D -> Left and Right"
+text = "Walking
+
+A  D"
 align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label2" type="Label" parent="Tutorials"]
-margin_left = 776.0
-margin_top = 256.0
-margin_right = 1048.0
-margin_bottom = 288.0
+margin_left = 800.0
+margin_top = 216.0
+margin_right = 1072.0
+margin_bottom = 318.0
 custom_fonts/font = ExtResource( 7 )
-text = "Space -> Jump"
+text = "Jump
+
+Space"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label3" type="Label" parent="Tutorials"]
-margin_left = 2672.0
-margin_top = 168.0
-margin_right = 2872.0
-margin_bottom = 281.0
+margin_left = 2640.0
+margin_top = 152.0
+margin_right = 2936.0
+margin_bottom = 440.0
 custom_fonts/font = ExtResource( 7 )
-text = "Bring the jigsaw pieces to the character to join them together and  get powers"
+text = "Bring the pieces with the mouse
+
+Connect them with Jiggy"
 align = 1
 autowrap = true
 __meta__ = {
@@ -80,13 +87,14 @@ __meta__ = {
 }
 
 [node name="Label4" type="Label" parent="Tutorials"]
-margin_left = 3000.0
-margin_top = 176.0
-margin_right = 3200.0
-margin_bottom = 289.0
+margin_left = 3256.0
+margin_top = 208.0
+margin_right = 3488.0
+margin_bottom = 450.0
 custom_fonts/font = ExtResource( 7 )
 text = "Legs piece
-Gives you extra collision to jump further"
+
+Gives you extra legs"
 align = 1
 autowrap = true
 __meta__ = {
@@ -94,12 +102,37 @@ __meta__ = {
 }
 
 [node name="Label5" type="Label" parent="Tutorials"]
-margin_left = 1648.0
-margin_top = -944.0
-margin_right = 1848.0
-margin_bottom = -872.0
+margin_left = 1800.0
+margin_top = -984.0
+margin_right = 2000.0
+margin_bottom = -777.0
 custom_fonts/font = ExtResource( 7 )
 text = "Bring all the pieces to the end"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelCompleteLayer" type="CanvasLayer" parent="."]
+
+[node name="Window" type="Control" parent="LevelCompleteLayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="LevelCompleteLayer/Window"]
+margin_left = 176.0
+margin_top = 120.0
+margin_right = 696.0
+margin_bottom = 312.0
+custom_fonts/font = ExtResource( 7 )
+text = "Click!
+
+Press any key to go to the next level"
 align = 1
 autowrap = true
 __meta__ = {

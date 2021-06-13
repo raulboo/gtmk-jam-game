@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://script/levels/LevelBase.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/m5x7.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://script/levels/PowerUp.tscn" type="PackedScene" id=3]
 
 [sub_resource type="DynamicFont" id=1]
@@ -20,14 +20,15 @@ visible = false
 [node name="Text" type="CanvasLayer" parent="." index="4"]
 
 [node name="Label" type="Label" parent="Text" index="0"]
-margin_left = 312.0
-margin_top = 192.0
-margin_right = 708.0
-margin_bottom = 297.0
+margin_left = 200.0
+margin_top = 200.0
+margin_right = 888.0
+margin_bottom = 398.0
 custom_fonts/font = SubResource( 1 )
 text = "The end!
 Thanks for playing!"
 align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

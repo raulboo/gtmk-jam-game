@@ -27,7 +27,7 @@ func _physics_process(_delta):
 		velocity.y -= jump_force
 		play_sfx("Jump")
 	
-	debug_checks()
+	#debug_checks()
 
 	#velocity += acceleration
 	velocity = move_and_slide(velocity, up_direction)
@@ -76,5 +76,11 @@ func play_sfx(name : String):
 
 func die():
 	emit_signal("player_dead")
+	$SFX/Death.play()
+	
+	# Bad code, but works for now cx
+	$PieceController.de_attach_piece_string("LEGS")
+	$PieceController.de_attach_piece_string("GRAVITY")
+	$PieceController.de_attach_piece_string("ROPE")
 	# TODO: reset pieces
 	# TODO: reset gravity
