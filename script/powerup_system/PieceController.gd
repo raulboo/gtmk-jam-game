@@ -64,14 +64,19 @@ func de_attach_and_move(piece, pos):
 
 #returns the index of an available slot, if there are no slots available it returns -1
 func get_avaiable_slot(piece):
-	if piece.power_type == "LEGS" && slot_dict[RIGHT_SLOT][1] == false:
-		return RIGHT_SLOT
+	if slot_dict[LEFT_SLOT][1] == false:
+		if piece.power_type == "LEGS":
+			return RIGHT_SLOT
 
-	elif piece.power_type == "GRAVITY" && slot_dict[UP_SLOT][1] == false:
-		return UP_SLOT
+		elif piece.power_type == "GRAVITY":
+			return UP_SLOT
 
-	elif (piece.power_type == "ROPE" || piece.power_type == "STICK") && slot_dict[LEFT_SLOT][1] == false:
-		return LEFT_SLOT
+		elif (piece.power_type == "ROPE"):
+			return UP_SLOT
+			
+		elif piece.power_type == "STICK":
+			return LEFT_SLOT
+	
 
 	for i in slot_dict.size():
 		if slot_dict[i][1] == false:
