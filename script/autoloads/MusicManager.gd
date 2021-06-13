@@ -17,5 +17,4 @@ func switch_loop(new_loop : int):
 #
 
 func _on_Loop_finished():
-	print("AAAAAAAAAAAA")
 	self.get_child(current_loop).play()

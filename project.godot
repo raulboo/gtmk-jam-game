@@ -33,7 +33,11 @@ _global_script_class_icons={
 [application]
 
 config/name="gmtk-jam-game"
-run/main_scene="res://script/levels/Level5.tscn"
+run/main_scene="res://script/mainmenu/MainMenu.tscn"
+boot_splash/image="res://white_placeholder.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+boot_splash/bg_color=Color( 1, 1, 1, 1 )
 config/icon="res://icon.png"
 
 [autoload]

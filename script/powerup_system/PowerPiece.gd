@@ -20,7 +20,6 @@ func change_parent(parent_node):
 	self.get_parent().remove_child(self)
 	parent_node.add_child(self)
 	
-#algorithm that should find the place of the new piece
 func set_piece_position(position, slot_index):
 	#orientate the sprite accordingly
 	$Sprite.rotation_degrees = 90 - (slot_index * 90) 

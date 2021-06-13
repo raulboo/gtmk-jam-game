@@ -34,12 +34,14 @@ func attach_piece(piece):
 
 	var pieces_amount = attached_pieces.size()
 	if pieces_amount < MAX_PIECES && find_piece(piece) == false:
+		slot_dict[slot_index][1] = true
 		piece.change_parent(player.get_node("PieceHolder"))
 		piece.set_piece_position(slot_dict[slot_index][0], slot_index)
-		slot_dict[slot_index][1] = true
 		piece.set_attached(slot_index)
 		attached_pieces.push_back(piece)
 		emit_signal("piece_attached", piece.power_type)
+
+	print("attached ", piece.power_type, " at slot ", slot_index)
 		
 #removes the selected piece
 func de_attach_piece(piece):
@@ -69,23 +71,19 @@ func de_attach_and_move(piece, pos):
 
 #returns the index of an available slot, if there are no slots available it returns -1
 func get_avaiable_slot(piece):
-	if slot_dict[LEFT_SLOT][1] == false:
-		if piece.power_type == "LEGS":
-			return RIGHT_SLOT
+	if slot_dict[RIGHT_SLOT][1] == false && piece.power_type == "LEGS":
+		return RIGHT_SLOT
 
-		elif piece.power_type == "GRAVITY":
-			return UP_SLOT
+	if slot_dict[UP_SLOT][1] == false && piece.power_type == "GRAVITY":
+		return UP_SLOT
 
-		elif (piece.power_type == "ROPE"):
-			return UP_SLOT
-
-		elif piece.power_type == "STICK":
-			return LEFT_SLOT
-	
+	if slot_dict[LEFT_SLOT][1] == false && piece.power_type == "STICK":
+		return LEFT_SLOT
 
 	for i in slot_dict.size():
 		if slot_dict[i][1] == false:
 			return i
+
 	return -1
 			
 #returns true if piece exists in the current arary

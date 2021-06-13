@@ -17,8 +17,6 @@ tile_set = ExtResource( 3 )
 cell_size = Vector2( 32, 32 )
 format = 1
 
-[node name="EndGoal" type="Position2D" parent="."]
-
 [node name="FinalPole" parent="." instance=ExtResource( 4 )]
 
 [node name="LevelCompleteLayer" type="CanvasLayer" parent="."]

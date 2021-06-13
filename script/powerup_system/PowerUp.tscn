@@ -10,9 +10,9 @@ extents = Vector2( 16, 16 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "LEGS",
+"name": "ROPE",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -20,13 +20,15 @@ animations = [ {
 "name": "GRAVITY",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "ROPE",
+"name": "LEGS",
 "speed": 5.0
 } ]
 
-[node name="PowerUp" type="Node2D"]
+[node name="PowerUp" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -38,5 +40,8 @@ shape = SubResource( 1 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
 animation = "ROPE"
+
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
 
 [connection signal="input_event" from="Area2D" to="." method="on_piece_input_event"]

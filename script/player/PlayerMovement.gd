@@ -29,9 +29,9 @@ func _physics_process(_delta):
 	
 	#debug_checks()
 
-	#velocity += acceleration
 	velocity = move_and_slide(velocity, up_direction)
-	#acceleration = Vector2.ZERO
+
+	
 	check_hostile_collisions()
 	
 	if get_slide_count() > 0:

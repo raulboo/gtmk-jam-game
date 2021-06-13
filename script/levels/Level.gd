@@ -13,6 +13,7 @@ func _ready():
 	$Player.connect("player_dead", self, "on_player_dead")
 	MusicManager.switch_loop(music_loop)
 	$LevelCompleteLayer/Window.hide()
+	$FinalPole.get_node("Label").text = "Needs %s pieces" % pieces_needed_to_win
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("next_level"):
@@ -35,4 +36,3 @@ func _on_FinalPole_reached_end(pieces):
 		
 	else:
 		$FinalPole.get_node("NopeSFX").play()
-		$FinalPole.get_node("NopeLabel").text = "Needs %s pieces" % pieces_needed_to_win

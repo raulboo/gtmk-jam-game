@@ -49,9 +49,6 @@ func on_piece_de_attached(type_string):
 		"GRAVITY":
 			reset_gravity()
 			upper_collider.disabled = true
-			
-		"ROPE":
-			upper_collider.disabled = true
 
 func invert_gravity():
 	player_kinematic.play_sfx("Gravity")
