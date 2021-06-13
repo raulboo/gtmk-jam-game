@@ -29,7 +29,7 @@ func attach_piece(piece):
 		piece.change_parent(player.get_node("PieceHolder"))
 		
 		var slot_index = get_avaiable_slot()
-		piece.set_piece_position(slot_dict[slot_index][0])
+		piece.set_piece_position(slot_dict[slot_index][0], slot_index)
 		slot_dict[slot_index][1] = true
 		piece.set_attached(slot_index)
 		

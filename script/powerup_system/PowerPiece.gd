@@ -21,8 +21,8 @@ func change_parent(parent_node):
 	parent_node.add_child(self)
 	
 #algorithm that should find the place of the new piece
-func set_piece_position(position):
-	#var target = Vector2(position.x, position.y - (size_y * (amount + 1)))
+func set_piece_position(position, slot_index):
+	$Sprite.rotation_degrees = 90 - (slot_index * 90) #orientate the sprite accordingly
 	self.position = position
 
 #change global position of this piece

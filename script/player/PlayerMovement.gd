@@ -12,10 +12,8 @@ export(float) var lateral_speed = 300
 var gravity_current = gravity_acceleration
 var acceleration = Vector2(0, 0)
 var velocity = Vector2(0, 0)
-
 var up_direction = Vector2.UP
-
-var on_rope_momentuum := false
+var on_rope_momentum := false
 
 #TODO: check delta multiplication
 func _physics_process(delta):
@@ -37,7 +35,7 @@ func _physics_process(delta):
 									# 	#gravity_scale = 9
 									# else
 		
-	if not on_rope_momentuum:
+	if not on_rope_momentum:
 		velocity.x = ((- int(Input.is_action_pressed("move_left")) 
 				+ int(Input.is_action_pressed("move_right"))) * lateral_speed)
 
@@ -59,7 +57,7 @@ func _physics_process(delta):
 	check_hostile_collisions()
 	
 	if get_slide_count() > 0:
-		on_rope_momentuum = false
+		on_rope_momentum = false
 	
 	if velocity.x != 0:
 		flip_to(sign(velocity.x)) 
