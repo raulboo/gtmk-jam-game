@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/box-tilemap/tileset_box-tilemap.tres" type="TileSet" id=1]
 [ext_resource path="res://script/levels/PowerUp.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://script/powerup_system/FinalPole.tscn" type="PackedScene" id=5]
 [ext_resource path="res://script/levels/Level2.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/32-bitfont.tres" type="DynamicFont" id=7]
+[ext_resource path="res://assets/sfx/win.mp3" type="AudioStream" id=8]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 4 )
@@ -30,6 +31,11 @@ position = Vector2( 1744, -888 )
 
 [node name="FinalPole" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1744, -824 )
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Victory" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 8 )
 
 [node name="Tutorials" type="Control" parent="."]
 __meta__ = {

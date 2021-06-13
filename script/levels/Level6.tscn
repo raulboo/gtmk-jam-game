@@ -11,6 +11,7 @@ extents = Vector2( 208, 24 )
 [node name="Level" instance=ExtResource( 1 )]
 pieces_needed_to_win = 2
 next_level = ExtResource( 4 )
+music_loop = 2
 
 [node name="Player" parent="." index="0"]
 position = Vector2( 576, 1040 )

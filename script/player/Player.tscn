@@ -1,10 +1,16 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://script/player/PlayerMovement.gd" type="Script" id=1]
 [ext_resource path="res://script/powerup_system/PieceController.gd" type="Script" id=2]
 [ext_resource path="res://assets/character_runing_animation_2.png" type="Texture" id=3]
 [ext_resource path="res://script/powerup_system/PlayerPowerupManager.gd" type="Script" id=4]
 [ext_resource path="res://assets/background.png" type="Texture" id=5]
+[ext_resource path="res://assets/sfx/jump.mp3" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/click.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sfx/rubberband.mp3" type="AudioStream" id=8]
+[ext_resource path="res://assets/sfx/death.mp3" type="AudioStream" id=9]
+[ext_resource path="res://assets/sfx/gravity.mp3" type="AudioStream" id=10]
+[ext_resource path="res://assets/sfx/walk.mp3" type="AudioStream" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -28,43 +34,43 @@ region = Rect2( 16, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 3 )
-region = Rect2( 144, 0, 16, 32 )
+region = Rect2( 32, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 3 )
-region = Rect2( 160, 0, 16, 32 )
+region = Rect2( 48, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 3 )
-region = Rect2( 176, 0, 16, 32 )
+region = Rect2( 64, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 3 )
-region = Rect2( 32, 0, 16, 32 )
+region = Rect2( 80, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 3 )
-region = Rect2( 48, 0, 16, 32 )
+region = Rect2( 96, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
-region = Rect2( 64, 0, 16, 32 )
+region = Rect2( 112, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 3 )
-region = Rect2( 80, 0, 16, 32 )
+region = Rect2( 128, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 3 )
-region = Rect2( 96, 0, 16, 32 )
+region = Rect2( 144, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 3 )
-region = Rect2( 112, 0, 16, 32 )
+region = Rect2( 160, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 3 )
-region = Rect2( 128, 0, 16, 32 )
+region = Rect2( 176, 0, 16, 32 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
@@ -73,16 +79,19 @@ animations = [ {
 "name": "idle",
 "speed": 4.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "walking",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
 } ]
+
+[sub_resource type="CircleShape2D" id=18]
+radius = 32.0
 
 [node name="Player" type="KinematicBody2D" groups=[
 "Players",
@@ -135,6 +144,7 @@ position = Vector2( 0, -16 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 17 )
 animation = "idle"
+frame = 1
 playing = true
 
 [node name="PieceHolder" type="Node2D" parent="."]
@@ -142,6 +152,36 @@ playing = true
 [node name="PlayerPowerupManager" type="Node" parent="."]
 script = ExtResource( 4 )
 rope_momentum = 1000.0
+
+[node name="PieceClickingDetection" type="Area2D" parent="."]
+position = Vector2( 0, -32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PieceClickingDetection"]
+shape = SubResource( 18 )
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="Click" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource( 7 )
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource( 6 )
+volume_db = -9.649
+
+[node name="Death" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource( 9 )
+
+[node name="Gravity" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource( 10 )
+
+[node name="Walking" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource( 11 )
+
+[node name="Rope" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource( 8 )
 
 [connection signal="piece_attached" from="PieceController" to="PlayerPowerupManager" method="on_piece_attached"]
 [connection signal="piece_de_attached" from="PieceController" to="PlayerPowerupManager" method="on_piece_de_attached"]

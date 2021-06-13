@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/gravity.mp3-50f3046a43b0b4d2dc894376a34e4296.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/gravity.mp3"
+dest_files=[ "res://.import/gravity.mp3-50f3046a43b0b4d2dc894376a34e4296.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

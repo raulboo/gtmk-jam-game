@@ -25,6 +25,7 @@ func _physics_process(_delta):
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y -= jump_force
+		play_sfx("Jump")
 	
 	debug_checks()
 
@@ -67,6 +68,11 @@ func debug_checks():
 					(int(Input.is_action_pressed("ui_down")) * Vector2(0, 1)) +
 					(int(Input.is_action_pressed("ui_left")) * Vector2(-1, 0)) +
 					(int(Input.is_action_pressed("ui_right")) * Vector2(1, 0))) * jump_force
+
+
+func play_sfx(name : String):
+	$SFX.get_node(name).play()
+
 
 func die():
 	emit_signal("player_dead")

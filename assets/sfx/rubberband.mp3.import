@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/rubberband.mp3-f3c0a602539db77fb9854ab2867c5658.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/rubberband.mp3"
+dest_files=[ "res://.import/rubberband.mp3-f3c0a602539db77fb9854ab2867c5658.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -30,6 +30,7 @@ func _input(event):
 
 func on_piece_attached(type_string):
 	powerup_states[type_string] = true
+	player_kinematic.play_sfx("Click")
 
 	match type_string:
 		"LEGS":
@@ -39,6 +40,7 @@ func on_piece_attached(type_string):
 
 func on_piece_de_attached(type_string):
 	powerup_states[type_string] = false
+	player_kinematic.play_sfx("Click")
 	
 	match type_string:
 		"LEGS":
@@ -52,12 +54,14 @@ func on_piece_de_attached(type_string):
 			upper_collider.disabled = true
 
 func invert_gravity():
+	player_kinematic.play_sfx("Gravity")
 	player_kinematic.gravity_current *= -1
 	player_kinematic.jump_force *= -1
 	player_kinematic.up_direction *= -1
 	#TODO: make the sprite turn around
 
 func reset_gravity():
+	player_kinematic.play_sfx("Gravity")
 	if player_kinematic.gravity_current < 0:
 		player_kinematic.gravity_current *= -1
 	if player_kinematic.jump_force < 0:
@@ -65,6 +69,7 @@ func reset_gravity():
 	player_kinematic.up_direction = Vector2.UP
 
 func use_rope():
+	player_kinematic.play_sfx("Rope")
 	player_kinematic.velocity += ((player_kinematic.get_global_mouse_position() - player_kinematic.global_position).normalized() * rope_momentum)
 	player_kinematic.on_rope_momentum = true
 	#player_kinematic.velocity.y -= gravity_current
