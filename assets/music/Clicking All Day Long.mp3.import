@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Clicking All Day Long.mp3-b9c012981a1efe1b6e7331f9a9563d3c.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Clicking All Day Long.mp3"
+dest_files=[ "res://.import/Clicking All Day Long.mp3-b9c012981a1efe1b6e7331f9a9563d3c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -14,8 +14,8 @@ func _ready():
 	MusicManager.switch_loop(music_loop)
 	$LevelCompleteLayer/Window.hide()
 
-func _input(event):
-	if event.is_action_released("next_level"):
+func _physics_process(_delta):
+	if Input.is_action_just_pressed("next_level"):
 		emit_signal("next_level_key_pressed")
 
 
@@ -30,6 +30,9 @@ func _on_FinalPole_reached_end(pieces):
 		# Display animation or followup to the next level
 		yield(self, "next_level_key_pressed")
 		
-		
 		get_tree().call_deferred("change_scene_to", next_level)
 		print("moving to next level")
+		
+	else:
+		$FinalPole.get_node("NopeSFX").play()
+		$FinalPole.get_node("NopeLabel").text = "Needs %s pieces" % pieces_needed_to_win
