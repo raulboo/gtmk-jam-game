@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Make It Click Menu.mp3-ca9470b70b1503aa9ea7eb9272db32f0.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Make It Click Menu.mp3"
+dest_files=[ "res://.import/Make It Click Menu.mp3-ca9470b70b1503aa9ea7eb9272db32f0.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
