@@ -22,13 +22,15 @@ func change_parent(parent_node):
 	
 #algorithm that should find the place of the new piece
 func set_piece_position(position, slot_index):
-	$Sprite.rotation_degrees = 90 - (slot_index * 90) #orientate the sprite accordingly
+	#orientate the sprite accordingly
+	$Sprite.rotation_degrees = 90 - (slot_index * 90) 
 	self.position = position
 
 #change global position of this piece
 func move_to (pos):
 	self.global_position = pos
 
+#return piece to spawn, useful later for animation
 func move_to_spawn ():
 	self.global_position = spawn_position
 	

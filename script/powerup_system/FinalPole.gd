@@ -15,4 +15,3 @@ func transfer_pieces(player):
 		piece.is_attached = false
 
 	emit_signal("reached_end", pieces_count)
-	print("reached end with ", pieces_count, " pieces")

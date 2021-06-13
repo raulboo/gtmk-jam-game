@@ -12,7 +12,8 @@ func _ready():
 func on_player_dead():
 	$Player.position = original_player_position
 
-
-func _on_FinalPole_reached_end(pieces : int):
-	if pieces == pieces_needed_to_win:
+func _on_FinalPole_reached_end(pieces):
+	print("reached end with ", pieces, " pieces")
+	if pieces >= pieces_needed_to_win:
 		get_tree().call_deferred("change_scene_to", next_level)
+		print("moving to next level")

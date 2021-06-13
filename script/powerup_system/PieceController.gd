@@ -3,6 +3,10 @@ extends Node
 #max amount of pieces allowed
 const MAX_PIECES = 3
 
+const RIGHT_SLOT = 0
+const UP_SLOT = 1
+const LEFT_SLOT = 2
+
 onready var player = get_parent()
 onready var game_scene = get_node("/root/Level") #TODO: keep an eye on this
 export(float) var sprite_piece_size = 32
@@ -24,11 +28,13 @@ func _ready():
 	
 #add a new piece to the player
 func attach_piece(piece):
+	var slot_index = get_avaiable_slot()
+	if slot_index == -1:
+		return
+
 	var pieces_amount = attached_pieces.size()
 	if pieces_amount < MAX_PIECES && find_piece(piece) == false:
 		piece.change_parent(player.get_node("PieceHolder"))
-		
-		var slot_index = get_avaiable_slot()
 		piece.set_piece_position(slot_dict[slot_index][0], slot_index)
 		slot_dict[slot_index][1] = true
 		piece.set_attached(slot_index)
