@@ -79,8 +79,5 @@ func die():
 	$SFX/Death.play()
 	
 	# Bad code, but works for now cx
-	$PieceController.de_attach_piece_string("LEGS")
-	$PieceController.de_attach_piece_string("GRAVITY")
-	$PieceController.de_attach_piece_string("ROPE")
-	# TODO: reset pieces
-	# TODO: reset gravity
+	$PieceController.de_attach_all_pieces()
+	$PlayerPowerupManager.reset_gravity()

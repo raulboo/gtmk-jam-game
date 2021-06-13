@@ -50,7 +50,12 @@ func de_attach_piece(piece):
 		piece.move_to_spawn()	
 		attached_pieces.erase(piece) 
 		emit_signal("piece_de_attached", piece.power_type)
-			
+
+#deattaches all current player pieces
+func de_attach_all_pieces():
+	for piece in attached_pieces:
+		de_attach_piece(piece)
+
 #search and removes the 'name' piece
 func de_attach_piece_string(name: String):
 	for piece in attached_pieces:
@@ -73,7 +78,7 @@ func get_avaiable_slot(piece):
 
 		elif (piece.power_type == "ROPE"):
 			return UP_SLOT
-			
+
 		elif piece.power_type == "STICK":
 			return LEFT_SLOT
 	
