@@ -10,8 +10,4 @@ func body_entered(_body_id, body, _body_shape, _local_shape):
 func transfer_pieces(player):
 	var piece_controller = player.get_node("PieceController")
 	var pieces_count = piece_controller.attached_pieces.size()
-
-	for piece in piece_controller.attached_pieces:
-		piece.is_attached = false
-
 	emit_signal("reached_end", pieces_count)
