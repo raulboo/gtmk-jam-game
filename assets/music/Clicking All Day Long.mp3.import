@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Clicking All Day Long.mp3-b9c012981a1efe1b6e7331f9a9
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0

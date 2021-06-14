@@ -1,25 +1,13 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/music/Clicking All Day Long.mp3" type="AudioStream" id=1]
-[ext_resource path="res://assets/music/The Pieces Click.mp3" type="AudioStream" id=2]
+[ext_resource path="res://assets/music/Make it Click Menu.wav" type="AudioStream" id=1]
+[ext_resource path="res://assets/music/The Pieces Click.wav" type="AudioStream" id=2]
 [ext_resource path="res://script/autoloads/MusicManager.gd" type="Script" id=3]
-[ext_resource path="res://assets/music/Make It Click Menu.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/music/Clicking All Day Long.wav" type="AudioStream" id=4]
 
-[node name="MusicManager" type="Node"]
+[node name="MusicManager" type="AudioStreamPlayer"]
+volume_db = -10.0
 script = ExtResource( 3 )
-
-[node name="LoopMenu" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
-volume_db = -8.0
-
-[node name="LoopGameplay1" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 2 )
-volume_db = -8.0
-
-[node name="LoopGameplay2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
-volume_db = -8.0
-
-[connection signal="finished" from="LoopMenu" to="." method="_on_Loop_finished"]
-[connection signal="finished" from="LoopGameplay1" to="." method="_on_Loop_finished"]
-[connection signal="finished" from="LoopGameplay2" to="." method="_on_Loop_finished"]
+menu_stream = ExtResource( 1 )
+gp1_stream = ExtResource( 4 )
+gp2_stream = ExtResource( 2 )

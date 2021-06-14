@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Make It Click Menu.mp3-ca9470b70b1503aa9ea7eb9272db3
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0

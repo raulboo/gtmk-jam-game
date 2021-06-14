@@ -12,7 +12,7 @@ onready var original_player_position = $Player.position
 func _ready():
 	$Player.connect("player_dead", self, "on_player_dead")
 	MusicManager.switch_loop(music_loop)
-	$LevelCompleteLayer/Window.hide()
+	$"Player/WinLabel".visible = false
 	$FinalPole.get_node("Label").text = "Needs %s pieces" % pieces_needed_to_win
 
 func _physics_process(_delta):
@@ -26,13 +26,15 @@ func on_player_dead():
 func _on_FinalPole_reached_end(pieces):
 	print("reached end with ", pieces, " pieces")
 	if pieces >= pieces_needed_to_win:
+		MusicManager.mute()
 		$SFX/Victory.play()
-		$LevelCompleteLayer/Window.show()
+		$"Player/WinLabel".visible = true
+
 		# Display animation or followup to the next level
 		yield(self, "next_level_key_pressed")
 		
 		get_tree().call_deferred("change_scene_to", next_level)
 		print("moving to next level")
-		
-	else:
-		$FinalPole.get_node("NopeSFX").play()
+		return
+
+	$FinalPole.get_node("NopeSFX").play()

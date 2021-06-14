@@ -108,8 +108,8 @@ region_rect = Rect2( 0, 0, 864, 32 )
 
 [node name="PowerUp" parent="." index="9" instance=ExtResource( 3 )]
 position = Vector2( 776, 440 )
-enum_type = 2
+type = 2
 
 [node name="PowerUp2" parent="." index="10" instance=ExtResource( 3 )]
 position = Vector2( 1360, 208 )
-enum_type = 1
+type = 1

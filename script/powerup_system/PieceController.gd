@@ -1,94 +1,110 @@
 extends Node
 
-#max amount of pieces allowed
-const MAX_PIECES = 3
-
-const RIGHT_SLOT = 0
-const UP_SLOT = 1
-const LEFT_SLOT = 2
-
-onready var player = get_parent()
-onready var game_scene = get_node("/root/Level") #TODO: keep an eye on this
-export(float) var sprite_piece_size = 32
-
-var attached_pieces = [] #current player pieces are stored here
-var slot_dict = {} #hard coded piece positions are stored inside
-
 signal piece_attached(type_string)
 signal piece_de_attached(type_string)
 
+const MAX_PIECES = 3
+
+export(float) var sprite_piece_size = 32
+
+var slot_array = []
+onready var player = get_parent()
+onready var game_scene = get_node("/root/Level") #TODO: keep an eye on this
+
+class Slot:
+	var position
+	var piece
+	var collider
+
 func _ready():
-	var piece_spawn = $PieceCenter.position
-	#hard code slots relative to the player
-	slot_dict = {
-		0: [Vector2(piece_spawn.x + sprite_piece_size, piece_spawn.y), false],
-		1: [Vector2(piece_spawn.x, piece_spawn.y - sprite_piece_size), false],
-		2: [Vector2(piece_spawn.x - sprite_piece_size, piece_spawn.y), false]
-	}
-	
+	create_slots($PieceCenter.position)
+
 #add a new piece to the player
 func attach_piece(piece):
+	if slot_array.size() > MAX_PIECES:
+		return
+
 	var slot_index = get_avaiable_slot(piece)
 	if slot_index == -1:
 		return
 
-	var pieces_amount = attached_pieces.size()
-	if pieces_amount < MAX_PIECES && find_piece(piece) == false:
-		slot_dict[slot_index][1] = true
+	if find_piece_boolean(piece.type) == false:
 		piece.change_parent(player.get_node("PieceHolder"))
-		piece.set_piece_position(slot_dict[slot_index][0], slot_index)
+		piece.set_piece_position(slot_array[slot_index].position, slot_index)
 		piece.set_attached(slot_index)
-		attached_pieces.push_back(piece)
-		emit_signal("piece_attached", piece.power_type)
-
-	print("attached ", piece.power_type, " at slot ", slot_index)
-		
+		slot_array[slot_index].piece = piece
+		slot_array[slot_index].collider.disabled = false
+		emit_signal("piece_attached", piece)
+		print("attached ", piece.type, " at slot ", slot_index)
+	
 #removes the selected piece
 func de_attach_piece(piece):
-	if attached_pieces.find(piece) != -1:
-		slot_dict[piece.attached_slot][1] = false
+	if find_piece_boolean(piece.type) == true:
+		slot_array[piece.attached_slot].collider.disabled = true
+		slot_array[piece.attached_slot].piece = null
 		piece.change_parent(game_scene)
 		piece.set_de_attached()		
 		piece.move_to_spawn()	
-		attached_pieces.erase(piece) 
-		emit_signal("piece_de_attached", piece.power_type)
+		emit_signal("piece_de_attached", piece)
 
-#deattaches all current player pieces
-func de_attach_all_pieces():
-	for piece in attached_pieces:
-		de_attach_piece(piece)
+#hard code slots relative to the player
+func create_slots(piece_spawn):
+	var left = Slot.new()
+	left.position = Vector2(piece_spawn.x - sprite_piece_size, piece_spawn.y)
+	left.piece = null
+	left.collider = $"../LeftCollider"
 
-#search and removes the 'name' piece
-func de_attach_piece_string(name: String):
-	for piece in attached_pieces:
-		if piece.power_type == name:
-			de_attach_piece(piece)
-			return
+	var up = Slot.new()
+	up.position = Vector2(piece_spawn.x, piece_spawn.y - sprite_piece_size)
+	up.piece = null
+	up.collider = $"../UpCollider"
 
-func de_attach_and_move(piece, pos):
-	de_attach_piece(piece)
-	piece.move_to(pos)
+	var right = Slot.new()
+	right.position = Vector2(piece_spawn.x + sprite_piece_size, piece_spawn.y)
+	right.piece = null
+	right.collider = $"../RightCollider"
+
+	slot_array = [left, up, right]
 
 #returns the index of an available slot, if there are no slots available it returns -1
 func get_avaiable_slot(piece):
-	if slot_dict[RIGHT_SLOT][1] == false && piece.power_type == "LEGS":
-		return RIGHT_SLOT
-
-	if slot_dict[UP_SLOT][1] == false && piece.power_type == "GRAVITY":
-		return UP_SLOT
-
-	if slot_dict[LEFT_SLOT][1] == false && piece.power_type == "STICK":
-		return LEFT_SLOT
-
-	for i in slot_dict.size():
-		if slot_dict[i][1] == false:
+	if find_piece_boolean(piece.type) == false && !has_piece_at(piece.prefer_slot):
+		return piece.prefer_slot
+	
+	for i in MAX_PIECES:
+		if slot_array[i].piece == null:
 			return i
-
+	
 	return -1
-			
+
+func de_attach_piece_enum(piece_type_enum):
+	var piece = find_piece(piece_type_enum)
+	if piece != null:
+		de_attach_piece(piece)
+
+func de_attach_all_pieces():
+	for slot in slot_array:
+		if slot.piece != null:
+			de_attach_piece(slot.piece)
+	
 #returns true if piece exists in the current arary
-func find_piece(piece):
-	for a in attached_pieces:
-		if a.power_type == piece.power_type:
-			return true
+func find_piece(piece_type_enum):
+	for slot in slot_array:
+		if slot.piece != null && slot.piece.type == piece_type_enum:
+			return slot.piece
+	return null
+
+func find_piece_boolean(piece_type_enum):
+	return find_piece(piece_type_enum) != null
+
+func has_piece_at(slot):
+	if slot < MAX_PIECES:
+		return slot_array[slot].piece != null
 	return false
+
+func piece_count():
+	var count = 0
+	for slot in slot_array:
+		if slot.piece != null:
+			count += 1
+	return count

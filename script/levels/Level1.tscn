@@ -31,7 +31,7 @@ tile_data = PoolIntArray( -3473345, 1, 0, -3473344, 1, 1, -3473343, 1, 1, -34733
 
 [node name="LegPiece" parent="." instance=ExtResource( 2 )]
 position = Vector2( 3144, 328 )
-enum_type = 1
+type = 1
 
 [node name="FinalPole" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1752, -824 )
@@ -47,10 +47,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Tutorials"]
-margin_left = 312.0
-margin_top = 168.0
-margin_right = 560.0
-margin_bottom = 270.0
+margin_left = 304.0
+margin_top = 248.0
+margin_right = 552.0
+margin_bottom = 350.0
 custom_fonts/font = ExtResource( 7 )
 text = "Walking
 
@@ -62,10 +62,10 @@ __meta__ = {
 }
 
 [node name="Label2" type="Label" parent="Tutorials"]
-margin_left = 800.0
-margin_top = 216.0
-margin_right = 1072.0
-margin_bottom = 318.0
+margin_left = 632.0
+margin_top = 336.0
+margin_right = 904.0
+margin_bottom = 438.0
 custom_fonts/font = ExtResource( 7 )
 text = "Jump
 
@@ -112,31 +112,6 @@ margin_right = 1608.0
 margin_bottom = -921.0
 custom_fonts/font = ExtResource( 7 )
 text = "Bring the pieces to the end"
-align = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LevelCompleteLayer" type="CanvasLayer" parent="."]
-
-[node name="Window" type="Control" parent="LevelCompleteLayer"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="LevelCompleteLayer/Window"]
-margin_left = 176.0
-margin_top = 120.0
-margin_right = 696.0
-margin_bottom = 312.0
-custom_fonts/font = ExtResource( 7 )
-text = "Click!
-
-Press space to go to the next level"
 align = 1
 autowrap = true
 __meta__ = {

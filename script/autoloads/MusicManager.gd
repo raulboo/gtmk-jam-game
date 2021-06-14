@@ -1,20 +1,24 @@
-extends Node
+extends AudioStreamPlayer
 
 enum Loops {MENU, GP1, GP2}
 
-var current_loop : int
+export(AudioStream) var menu_stream
+export(AudioStream) var gp1_stream
+export(AudioStream) var gp2_stream
 
 func _ready():
-	current_loop = Loops.MENU
-	$LoopMenu.play()	
+	switch_loop(Loops.MENU)	
 	
 	
-func switch_loop(new_loop : int):
-	current_loop = new_loop
-#
-#	for loop in get_children():
-#		if loop.playing:
-#
+func switch_loop(new_loop):
+	match new_loop:
+		Loops.MENU:
+			self.stream = menu_stream
+		Loops.GP1:
+			self.stream = gp1_stream
+		Loops.GP2:
+			self.stream = gp2_stream
+	self.play()
 
-func _on_Loop_finished():
-	self.get_child(current_loop).play()
+func mute():
+	self.stop()

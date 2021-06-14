@@ -13,13 +13,12 @@ var gravity_current = gravity_acceleration
 var acceleration = Vector2(0, 0)
 var velocity = Vector2(0, 0)
 var up_direction = Vector2.UP
-var on_rope_momentum := false
+var on_rope_momentum = false
 
-#TODO: check delta multiplication
 func _physics_process(_delta):
 	velocity.y += gravity_current
 		
-	if not on_rope_momentum:
+	if !on_rope_momentum:
 		velocity.x = ((- int(Input.is_action_pressed("move_left")) 
 				+ int(Input.is_action_pressed("move_right"))) * lateral_speed)
 
@@ -50,8 +49,8 @@ func _physics_process(_delta):
 func flip_to(direction):
 	$AnimatedSprite.flip_h = (direction < 0)
 	$PieceHolder.scale.x = direction
-	$FrontCollision.position.x = abs($FrontCollision.position.x) * direction
-	$BackCollision.position.x = abs($BackCollision.position.x) * -direction
+	$RightCollider.position.x = abs($RightCollider.position.x) * direction
+	$LeftCollider.position.x = abs($LeftCollider.position.x) * -direction
 
 			
 func check_hostile_collisions():
@@ -73,11 +72,10 @@ func debug_checks():
 func play_sfx(name : String):
 	$SFX.get_node(name).play()
 
-
 func die():
 	emit_signal("player_dead")
 	$SFX/Death.play()
 	
 	# Bad code, but works for now cx
 	$PieceController.de_attach_all_pieces()
-	$PlayerPowerupManager.reset_gravity()
+	$PowerUpManager.reset_gravity()

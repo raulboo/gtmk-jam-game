@@ -31,14 +31,14 @@ position = Vector2( 616, 16 )
 position = Vector2( 688, 736 )
 
 [node name="Label" type="Label" parent="Tutorials" index="0"]
-margin_left = 648.0
-margin_top = 336.0
-margin_right = 1024.0
-margin_bottom = 683.0
+margin_left = 680.0
+margin_top = 304.0
+margin_right = 1056.0
+margin_bottom = 546.0
 custom_fonts/font = ExtResource( 4 )
 text = "Slingshot Piece
 
-Right mouse button boosts you"
+Right mouse button gives you a boost!"
 align = 1
 autowrap = true
 __meta__ = {
