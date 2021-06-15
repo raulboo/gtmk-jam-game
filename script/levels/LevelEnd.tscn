@@ -47,14 +47,15 @@ __meta__ = {
 
 [node name="PowerUp" parent="." index="6" instance=ExtResource( 3 )]
 position = Vector2( 768, 56 )
+type = 1
 
 [node name="PowerUp2" parent="." index="7" instance=ExtResource( 3 )]
 position = Vector2( 32, 496 )
-enum_type = 2
 
 [node name="PowerUp3" parent="." index="8" instance=ExtResource( 3 )]
 position = Vector2( 1048, 496 )
-enum_type = 1
+type = 2
 
 [node name="PowerUp4" parent="." index="9" instance=ExtResource( 3 )]
 position = Vector2( 272, 56 )
+type = 1
