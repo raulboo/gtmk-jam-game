@@ -76,7 +76,6 @@ type = 1
 
 [node name="PowerUp2" parent="." index="6" instance=ExtResource( 3 )]
 position = Vector2( 240, 720 )
-type = 2
 
 [node name="FinalPole" parent="." index="7"]
 position = Vector2( 1728, 232 )
