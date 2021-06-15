@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/pieces2.png" type="Texture" id=1]
-[ext_resource path="res://script/powerup_system/PowerPiece.gd" type="Script" id=2]
+[ext_resource path="res://script/PowerPiece.gd" type="Script" id=2]
 [ext_resource path="res://assets/pieces4.png" type="Texture" id=3]
 [ext_resource path="res://assets/pieces3.png" type="Texture" id=4]
 

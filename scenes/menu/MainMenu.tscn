@@ -1,31 +1,31 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://assets/box-tilemap/tileset_box-tilemap2.tres" type="TileSet" id=2]
-[ext_resource path="res://assets/FinalPole.tres" type="SpriteFrames" id=3]
-[ext_resource path="res://assets/32-bitfont.tres" type="DynamicFont" id=4]
-[ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=5]
-[ext_resource path="res://script/mainmenu/MainMenu.gd" type="Script" id=6]
-[ext_resource path="res://assets/ui/m04fatal_fury/m04b.TTF" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/FinalPole.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://assets/ui/m04fatal_fury/m04b.TTF" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=4]
+[ext_resource path="res://script/MainMenu.gd" type="Script" id=5]
+[ext_resource path="res://assets/box-tilemap/tileset_box-tilemap2.tres" type="TileSet" id=6]
+[ext_resource path="res://assets/32-bitfont.tres" type="DynamicFont" id=7]
 [ext_resource path="res://assets/pieces2.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 5 )
+font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 48
-font_data = ExtResource( 5 )
+font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 48
-font_data = ExtResource( 7 )
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 32
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 5 )
+font_data = ExtResource( 4 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
@@ -38,7 +38,7 @@ animations = [ {
 [node name="MainMenu" type="MarginContainer"]
 margin_right = 1024.0
 margin_bottom = 600.0
-script = ExtResource( 6 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -153,7 +153,7 @@ margin_top = 8.0
 margin_right = 276.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 224, 0 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Start"
@@ -180,7 +180,7 @@ margin_top = 8.0
 margin_right = 292.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 240, 0 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Exit"
 
@@ -198,7 +198,7 @@ valign = 1
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2( 0, -56 )
-tile_set = ExtResource( 2 )
+tile_set = ExtResource( 6 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( 983046, 0, 0, 983047, 0, 1, 983048, 0, 2, 983054, 1, 0, 983055, 1, 1, 983056, 1, 2, 983061, 2, 0, 983062, 2, 1, 983063, 2, 2, 1048582, 0, 65536, 1048583, 0, 65537, 1048584, 0, 65538, 1048590, 1, 65536, 1048591, 1, 65537, 1048592, 1, 65538, 1048597, 2, 65536, 1048598, 2, 65537, 1048599, 2, 65538, 1114118, 0, 131072, 1114119, 0, 131073, 1114120, 0, 131074, 1114126, 1, 131072, 1114127, 1, 131073, 1114128, 1, 131074, 1114133, 2, 131072, 1114134, 2, 131073, 1114135, 2, 131074 )
@@ -206,14 +206,15 @@ tile_data = PoolIntArray( 983046, 0, 0, 983047, 0, 1, 983048, 0, 2, 983054, 1, 0
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 240, 392 )
 scale = Vector2( 2, 2 )
-frames = ExtResource( 1 )
+frames = ExtResource( 2 )
 animation = "dancing"
+frame = 2
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 720, 384 )
 scale = Vector2( 2, 2 )
-frames = ExtResource( 3 )
+frames = ExtResource( 1 )
 playing = true
 
 [node name="AnimatedSprite3" type="AnimatedSprite" parent="."]

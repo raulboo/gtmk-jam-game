@@ -1,9 +1,9 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://script/player/PlayerMovement.gd" type="Script" id=1]
-[ext_resource path="res://script/powerup_system/PieceController.gd" type="Script" id=2]
+[ext_resource path="res://script/PlayerMovement.gd" type="Script" id=1]
+[ext_resource path="res://script/PieceController.gd" type="Script" id=2]
 [ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=3]
-[ext_resource path="res://script/powerup_system/PlayerPowerupManager.gd" type="Script" id=4]
+[ext_resource path="res://script/PlayerPowerupManager.gd" type="Script" id=4]
 [ext_resource path="res://assets/background2.png" type="Texture" id=5]
 [ext_resource path="res://assets/sfx/jump.mp3" type="AudioStream" id=6]
 [ext_resource path="res://assets/sfx/click.wav" type="AudioStream" id=7]
