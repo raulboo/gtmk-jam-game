@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://script/Level.gd" type="Script" id=2]
 [ext_resource path="res://assets/box-tilemap/tileset_box-tilemap.tres" type="TileSet" id=3]
 [ext_resource path="res://FinalPole.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/powerup_system/PowerUp.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sfx/win.mp3" type="AudioStream" id=6]
 [ext_resource path="res://assets/spikes_1.png" type="Texture" id=7]
-[ext_resource path="res://scenes/enemies/Spikes.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Spikes.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 240 )

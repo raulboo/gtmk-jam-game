@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "Node2D",
 "class": "Level",
 "language": "GDScript",
 "path": "res://script/Level.gd"
@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Make It Click"
-run/main_scene="res://scenes/menu/MainMenu.tscn"
+run/main_scene="res://levels/MainMenu.tscn"
 boot_splash/image="res://white_placeholder.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false

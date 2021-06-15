@@ -2,7 +2,7 @@ extends Node
 enum PieceType {SLINGSHOT, LEGS, GRAVITY}
 onready var piece_controller = $"../PieceController"
 onready var player_kinematic = get_parent()
-export(float) var rope_momentum = 5
+export(float) var rope_momentum = 1000
 
 func _input(event):
 	#gravity
@@ -22,9 +22,8 @@ func on_piece_attached(piece):
 func on_piece_de_attached(piece):
 	player_kinematic.play_sfx("Click")
 
-	match piece.type:
-		PieceType.GRAVITY:
-			reset_gravity()
+	if piece.type == PieceType.GRAVITY:
+		reset_gravity()
 
 func invert_gravity():
 	player_kinematic.play_sfx("Gravity")

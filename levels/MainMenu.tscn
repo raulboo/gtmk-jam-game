@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/FinalPole.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/box-tilemap/tileset_box-tilemap2.tres" type="TileSet" id=6]
 [ext_resource path="res://assets/32-bitfont.tres" type="DynamicFont" id=7]
 [ext_resource path="res://assets/pieces2.png" type="Texture" id=8]
+[ext_resource path="res://levels/Level1.tscn" type="PackedScene" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 4
@@ -42,6 +43,7 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+first_level = ExtResource( 9 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1024.0
@@ -208,13 +210,14 @@ position = Vector2( 240, 392 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 2 )
 animation = "dancing"
-frame = 2
+frame = 5
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 720, 384 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
+frame = 1
 playing = true
 
 [node name="AnimatedSprite3" type="AnimatedSprite" parent="."]

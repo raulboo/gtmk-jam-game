@@ -5,15 +5,16 @@ extends MarginContainer
 
 onready var selection_one = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer/Selector
 onready var selection_two = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer/Selector
+export(PackedScene) var first_level
 
 var current_selection = 0
-#
+
+func _process(_delta):
+	if Input.is_action_pressed("start_game"):
+		get_tree().change_scene_to(first_level)
+		
 #func _ready():
 #	setcurrent_selection(0)
-
-func _process(delta):
-	if Input.is_action_pressed("start_game"):
-		get_tree().change_scene("res://script/levels/Level1.tscn")
 	
 #	if Input.is_action_just_pressed("ui_down") and current_selection < 1:
 #		current_selection += 1

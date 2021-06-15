@@ -25,12 +25,12 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y -= jump_force
 		play_sfx("Jump")
+		$AnimatedSprite.play("jump")
 	
 	#debug_checks()
 
 	velocity = move_and_slide(velocity, up_direction)
 
-	
 	check_hostile_collisions()
 	
 	if get_slide_count() > 0:
@@ -41,11 +41,11 @@ func _physics_process(_delta):
 		$AnimatedSprite.play("walking")
 	else:
 		$AnimatedSprite.play("idle")
-		
+
+func _process(_delta):
 	if Input.is_action_just_pressed("reset_level"):
 		self.die()
 
-# Direction -> -1 = left; 1 = right
 func flip_to(direction):
 	$AnimatedSprite.flip_h = (direction < 0)
 	$PieceHolder.scale.x = direction
@@ -73,9 +73,8 @@ func play_sfx(name : String):
 	$SFX.get_node(name).play()
 
 func die():
-	emit_signal("player_dead")
 	$SFX/Death.play()
-	
-	# Bad code, but works for now cx
+
 	$PieceController.de_attach_all_pieces()
 	$PowerUpManager.reset_gravity()
+	emit_signal("player_dead")
