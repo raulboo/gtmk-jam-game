@@ -6,9 +6,9 @@
 [ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=4]
 [ext_resource path="res://script/MainMenu.gd" type="Script" id=5]
 [ext_resource path="res://assets/box-tilemap/tileset_box-tilemap2.tres" type="TileSet" id=6]
-[ext_resource path="res://assets/32-bitfont.tres" type="DynamicFont" id=7]
-[ext_resource path="res://assets/pieces2.png" type="Texture" id=8]
-[ext_resource path="res://levels/Level1.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/ui/32-bitfont.tres" type="DynamicFont" id=7]
+[ext_resource path="res://assets/pieces/pieces2.png" type="Texture" id=8]
+[ext_resource path="res://levels/DebugScene.tscn" type="PackedScene" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 4
@@ -210,7 +210,6 @@ position = Vector2( 240, 392 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 2 )
 animation = "dancing"
-frame = 6
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]

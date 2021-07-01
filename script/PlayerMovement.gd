@@ -10,31 +10,51 @@ export(float) var jump_force = 1000
 export(float) var lateral_speed = 300
 
 var gravity_current = gravity_acceleration
-var acceleration = Vector2(0, 0)
 var velocity = Vector2(0, 0)
-var up_direction = Vector2.UP
-var on_rope_momentum = false
+
+var moving_lateral = 0
+var jumping = false
+
+var using_slingshot = false
+
+func _process(_delta):
+	if Input.is_action_just_pressed("reset_level"):
+		self.die()
+
+	moving_lateral = 0
+	if Input.is_action_pressed("move_right"):
+		moving_lateral = 1
+	elif Input.is_action_pressed("move_left"):
+		moving_lateral = -1
+	
+	jumping = false
+	if Input.is_action_pressed("jump"):
+		jumping = true
+	
 
 func _physics_process(_delta):
 	velocity.y += gravity_current
 		
-	if !on_rope_momentum:
-		velocity.x = ((- int(Input.is_action_pressed("move_left")) 
-				+ int(Input.is_action_pressed("move_right"))) * lateral_speed)
+	if !using_slingshot:
+		velocity.x = (moving_lateral * lateral_speed)
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if jumping && is_on_floor():
 		velocity.y -= jump_force
 		play_sfx("Jump")
 		$AnimatedSprite.play("jump")
 	
 	#debug_checks()
 
+	var up_direction = Vector2.UP;
+	if gravity_current < 0:
+		up_direction = Vector2.DOWN
+
 	velocity = move_and_slide(velocity, up_direction)
 
-	check_hostile_collisions()
-	
 	if get_slide_count() > 0:
-		on_rope_momentum = false
+		using_slingshot = false
+
+	check_hostile_collisions()
 	
 	if velocity.x != 0:
 		flip_to(sign(velocity.x))
@@ -42,17 +62,12 @@ func _physics_process(_delta):
 	else:
 		$AnimatedSprite.play("idle")
 
-func _process(_delta):
-	if Input.is_action_just_pressed("reset_level"):
-		self.die()
-
 func flip_to(direction):
 	$AnimatedSprite.flip_h = (direction < 0)
 	$PieceHolder.scale.x = direction
 	$RightCollider.position.x = abs($RightCollider.position.x) * direction
 	$LeftCollider.position.x = abs($LeftCollider.position.x) * -direction
 
-			
 func check_hostile_collisions():
 	for i in get_slide_count():
 		var object = get_slide_collision(i).collider
@@ -74,7 +89,6 @@ func play_sfx(name : String):
 
 func die():
 	$SFX/Death.play()
-
 	$PieceController.de_attach_all_pieces()
 	$PowerUpManager.reset_gravity()
 	emit_signal("player_dead")
