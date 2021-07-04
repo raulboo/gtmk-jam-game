@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://assets/FinalPole.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://assets/props/final_pole/FinalPole.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://assets/ui/m04fatal_fury/m04b.TTF" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=4]
@@ -210,12 +210,14 @@ position = Vector2( 240, 392 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 2 )
 animation = "dancing"
+frame = 5
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 720, 384 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
+frame = 1
 playing = true
 
 [node name="AnimatedSprite3" type="AnimatedSprite" parent="."]

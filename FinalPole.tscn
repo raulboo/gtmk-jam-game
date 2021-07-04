@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/FinalPole.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://assets/props/final_pole/FinalPole.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://script/FinalPole.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/sfx/no.mp3" type="AudioStream" id=4]
