@@ -25,6 +25,7 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
+frame = 1
 playing = true
 
 [node name="NopeSFX" type="AudioStreamPlayer2D" parent="."]
@@ -40,7 +41,7 @@ margin_top = -64.0
 margin_right = 128.0
 margin_bottom = -48.0
 custom_fonts/font = SubResource( 2 )
-text = "Needs 10 Pieces"
+text = "Needs 10 Coins!"
 __meta__ = {
 "_edit_use_anchors_": false
 }

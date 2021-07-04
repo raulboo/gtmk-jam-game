@@ -25,7 +25,7 @@ outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 12 )
 
 [node name="Player" type="KinematicBody2D" groups=[
-"Players",
+"player",
 ]]
 position = Vector2( 728, 512 )
 script = ExtResource( 1 )
@@ -62,6 +62,7 @@ position = Vector2( 0, -16 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 3 )
 animation = "idle"
+frame = 1
 playing = true
 
 [node name="PieceHolder" type="Node2D" parent="."]

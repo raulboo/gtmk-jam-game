@@ -51,13 +51,9 @@ func set_attached(index):
 func set_de_attached():
 	attached_slot = -1
 
-#temporal
+#TODO: watch this
 onready var player_piece_controller = get_node("/root/Level/Player/PieceController")
-func on_piece_input_event(_viewport, event, _shape_idx):
-	if event.is_action_pressed('mouse_left'):
-		#add piece to the player
-		if attached_slot == -1:
-			player_piece_controller.attach_piece(self)
-		else:
-			player_piece_controller.de_attach_piece(self)
-			self.move_to(spawn_position)
+func on_body_entered(body):
+	if body.is_in_group("player") && attached_slot == -1:
+		player_piece_controller.call_deferred("attach_piece", self)
+		print("attaching piece")

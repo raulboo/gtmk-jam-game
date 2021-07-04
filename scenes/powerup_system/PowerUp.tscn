@@ -10,14 +10,14 @@ extents = Vector2( 16, 16 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "LEGS",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "SLINGSHOT",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "LEGS",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -39,4 +39,4 @@ scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
 animation = "SLINGSHOT"
 
-[connection signal="input_event" from="Area2D" to="." method="on_piece_input_event"]
+[connection signal="body_entered" from="Area2D" to="." method="on_body_entered"]

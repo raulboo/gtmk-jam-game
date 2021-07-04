@@ -4,7 +4,7 @@ extends Node2D
 signal reached_end(pieces)
 
 func body_entered(_body_id, body, _body_shape, _local_shape):
-	if body.is_in_group("Players"):
+	if body.is_in_group("player"):
 		transfer_pieces(body)
 		
 func transfer_pieces(player):

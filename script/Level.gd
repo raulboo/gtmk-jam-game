@@ -13,12 +13,11 @@ func _ready():
 	$Player.connect("player_dead", self, "on_player_dead")
 	MusicManager.switch_loop(music_loop)
 	$"Player/WinLabel".visible = false
-	$FinalPole.get_node("Label").text = "Needs %s pieces" % pieces_needed_to_win
+	$FinalPole.get_node("Label").text = "Needs %s coins!" % pieces_needed_to_win
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("next_level"):
 		emit_signal("next_level_key_pressed")
-
 
 func on_player_dead():
 	$Player.position = original_player_position
