@@ -1,17 +1,17 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://script/PlayerMovement.gd" type="Script" id=1]
-[ext_resource path="res://script/PieceController.gd" type="Script" id=2]
-[ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=3]
-[ext_resource path="res://script/PlayerPowerupManager.gd" type="Script" id=4]
-[ext_resource path="res://assets/background2.png" type="Texture" id=5]
-[ext_resource path="res://assets/sfx/jump.mp3" type="AudioStream" id=6]
-[ext_resource path="res://assets/sfx/click.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://script/PlayerPowerupManager.gd" type="Script" id=2]
+[ext_resource path="res://script/PieceController.gd" type="Script" id=3]
+[ext_resource path="res://script/PlayerMovement.gd" type="Script" id=4]
+[ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/sfx/walk.mp3" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/jump.mp3" type="AudioStream" id=7]
 [ext_resource path="res://assets/sfx/rubberband.mp3" type="AudioStream" id=8]
-[ext_resource path="res://assets/sfx/death.mp3" type="AudioStream" id=9]
+[ext_resource path="res://assets/background2.png" type="Texture" id=9]
 [ext_resource path="res://assets/sfx/gravity.mp3" type="AudioStream" id=10]
-[ext_resource path="res://assets/sfx/walk.mp3" type="AudioStream" id=11]
-[ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=12]
+[ext_resource path="res://assets/sfx/death.mp3" type="AudioStream" id=11]
+[ext_resource path="res://assets/sfx/click.wav" type="AudioStream" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 32 )
@@ -22,14 +22,15 @@ extents = Vector2( 16, 16 )
 [sub_resource type="DynamicFont" id=3]
 outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 12 )
+font_data = ExtResource( 5 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "player",
 ]]
 position = Vector2( 728, 512 )
-script = ExtResource( 1 )
+script = ExtResource( 4 )
 gravity_acceleration = 80
+jump_force = 800.0
 lateral_speed = 350.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -39,7 +40,7 @@ lateral_speed = 350.0
 [node name="Sprite" type="Sprite" parent="CanvasLayer/ParallaxBackground"]
 position = Vector2( 728, 408 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 5 )
+texture = ExtResource( 9 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -64 )
@@ -52,7 +53,7 @@ position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
 [node name="PieceController" type="Node2D" parent="."]
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="PieceCenter" type="Node2D" parent="PieceController"]
 position = Vector2( 0, -32 )
@@ -60,7 +61,7 @@ position = Vector2( 0, -32 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 scale = Vector2( 2, 2 )
-frames = ExtResource( 3 )
+frames = ExtResource( 1 )
 animation = "idle"
 frame = 1
 playing = true
@@ -70,20 +71,20 @@ playing = true
 [node name="SFX" type="Node2D" parent="."]
 
 [node name="Click" type="AudioStreamPlayer2D" parent="SFX"]
-stream = ExtResource( 7 )
+stream = ExtResource( 12 )
 
 [node name="Jump" type="AudioStreamPlayer2D" parent="SFX"]
-stream = ExtResource( 6 )
+stream = ExtResource( 7 )
 volume_db = -9.649
 
 [node name="Death" type="AudioStreamPlayer2D" parent="SFX"]
-stream = ExtResource( 9 )
+stream = ExtResource( 11 )
 
 [node name="Gravity" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 10 )
 
 [node name="Walking" type="AudioStreamPlayer2D" parent="SFX"]
-stream = ExtResource( 11 )
+stream = ExtResource( 6 )
 
 [node name="Slingshot" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 8 )
@@ -104,7 +105,7 @@ shape = SubResource( 2 )
 disabled = true
 
 [node name="PowerUpManager" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 2 )
 
 [node name="WinLabel" type="Label" parent="."]
 visible = false

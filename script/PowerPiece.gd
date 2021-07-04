@@ -10,8 +10,6 @@ var prefer_slot
 var spawn_position
 var attached_slot = -1
 
-onready var size = $Area2D/AreaCollision.shape.get("extents") * 2
-
 func _ready():
 	$Sprite.play(PieceType.keys()[type])
 	spawn_position = self.global_position
@@ -56,4 +54,3 @@ onready var player_piece_controller = get_node("/root/Level/Player/PieceControll
 func on_body_entered(body):
 	if body.is_in_group("player") && attached_slot == -1:
 		player_piece_controller.call_deferred("attach_piece", self)
-		print("attaching piece")

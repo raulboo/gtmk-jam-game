@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://script/Level.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "Player",
-"language": "GDScript",
-"path": "res://script/PlayerMovement.gd"
-}, {
 "base": "Node2D",
 "class": "PowerPiece",
 "language": "GDScript",
@@ -26,7 +21,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Level": "",
-"Player": "",
 "PowerPiece": ""
 }
 
@@ -34,11 +28,9 @@ _global_script_class_icons={
 
 config/name="Make It Click"
 run/main_scene="res://levels/MainMenu.tscn"
-boot_splash/image="res://white_placeholder.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 1, 1, 1, 1 )
-config/icon="res://icon.png"
 
 [autoload]
 
@@ -112,7 +104,7 @@ debug_noclip={
 }
 trigger_slingshot={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"unicode":0,"echo":false,"script":null)
  ]
 }
 reset_level={

@@ -35,7 +35,6 @@ func attach_piece(piece):
 		slot_array[slot_index].piece = piece
 		slot_array[slot_index].collider.disabled = false
 		emit_signal("piece_attached", piece)
-		print("attached ", piece.type, " at slot ", slot_index)
 	
 #removes the selected piece
 func de_attach_piece(piece):

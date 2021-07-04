@@ -1,21 +1,19 @@
 extends KinematicBody2D
-class_name Player
 
 signal player_dead
-
-var is_noclipping := false
 
 export(int) var gravity_acceleration = 30
 export(float) var jump_force = 1000
 export(float) var lateral_speed = 300
 
-var gravity_current = gravity_acceleration
 var velocity = Vector2(0, 0)
 
 var moving_lateral = 0
 var jumping = false
-
 var using_slingshot = false
+
+var facing_dir = 1
+var gravity_dir = 1
 
 func _process(_delta):
 	if Input.is_action_just_pressed("reset_level"):
@@ -33,23 +31,23 @@ func _process(_delta):
 	
 
 func _physics_process(_delta):
-	velocity.y += gravity_current
+	velocity.y += gravity_acceleration
 		
 	if !using_slingshot:
 		velocity.x = (moving_lateral * lateral_speed)
 
 	if jumping && is_on_floor():
-		velocity.y -= jump_force
+		velocity.y -= jump_force * gravity_dir
 		play_sfx("Jump")
 		$AnimatedSprite.play("jump")
 	
 	#debug_checks()
 
-	var up_direction = Vector2.UP;
-	if gravity_current < 0:
-		up_direction = Vector2.DOWN
+	gravity_dir = 1
+	if gravity_acceleration < 0:
+		gravity_dir = -1
 
-	velocity = move_and_slide(velocity, up_direction)
+	velocity = move_and_slide(velocity, Vector2(0, -gravity_dir))
 
 	if get_slide_count() > 0:
 		using_slingshot = false
@@ -57,7 +55,8 @@ func _physics_process(_delta):
 	check_hostile_collisions()
 	
 	if velocity.x != 0:
-		flip_to(sign(velocity.x))
+		facing_dir = sign(velocity.x)
+		flip_to(facing_dir)
 		$AnimatedSprite.play("walking")
 	else:
 		$AnimatedSprite.play("idle")
@@ -72,17 +71,7 @@ func check_hostile_collisions():
 	for i in get_slide_count():
 		var object = get_slide_collision(i).collider
 		if object.is_in_group("hostile"):
-			self.die()
-
-func debug_checks():
-	if Input.is_action_just_pressed("debug_noclip"):
-		is_noclipping = !is_noclipping
-	if is_noclipping:
-		velocity = ((int(Input.is_action_pressed("ui_up")) * Vector2(0, -1)) +
-					(int(Input.is_action_pressed("ui_down")) * Vector2(0, 1)) +
-					(int(Input.is_action_pressed("ui_left")) * Vector2(-1, 0)) +
-					(int(Input.is_action_pressed("ui_right")) * Vector2(1, 0))) * jump_force
-
+			die()
 
 func play_sfx(name : String):
 	$SFX.get_node(name).play()
@@ -92,3 +81,14 @@ func die():
 	$PieceController.de_attach_all_pieces()
 	$PowerUpManager.reset_gravity()
 	emit_signal("player_dead")
+
+#debug
+var is_noclipping := false
+func debug_checks():
+	if Input.is_action_just_pressed("debug_noclip"):
+		is_noclipping = !is_noclipping
+	if is_noclipping:
+		velocity = ((int(Input.is_action_pressed("ui_up")) * Vector2(0, -1)) +
+					(int(Input.is_action_pressed("ui_down")) * Vector2(0, 1)) +
+					(int(Input.is_action_pressed("ui_left")) * Vector2(-1, 0)) +
+					(int(Input.is_action_pressed("ui_right")) * Vector2(1, 0))) * jump_force

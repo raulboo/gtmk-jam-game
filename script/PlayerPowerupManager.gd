@@ -6,14 +6,14 @@ export(float) var rope_momentum = 1000
 
 func _input(event):
 	#gravity
-	if event.is_action_pressed('invert_gravity'):
-		if player_kinematic.gravity_current < 0:
+	if event.is_action_pressed("invert_gravity"):
+		if player_kinematic.gravity_acceleration < 0:
 			piece_controller.de_attach_piece_enum(PieceType.GRAVITY)
 		elif piece_controller.find_piece_boolean(PieceType.GRAVITY):
 				invert_gravity()
 			
 	#rope
-	if event.is_action_released("trigger_slingshot") && piece_controller.find_piece_boolean(PieceType.SLINGSHOT):
+	if event.is_action_pressed("trigger_slingshot") && piece_controller.find_piece_boolean(PieceType.SLINGSHOT):
 		use_slingshot()
 
 func on_piece_attached(_piece):
@@ -27,18 +27,18 @@ func on_piece_de_attached(piece):
 
 func invert_gravity():
 	player_kinematic.play_sfx("Gravity")
-	player_kinematic.gravity_current *= -1
-	player_kinematic.jump_force *= -1
-	#TODO: make the sprite turn around
+	player_kinematic.gravity_acceleration *= -1
 
 func reset_gravity():
-	if player_kinematic.gravity_current < 0:
-		player_kinematic.gravity_current *= -1
-	if player_kinematic.jump_force < 0:
-		player_kinematic.jump_force *= -1
+	if player_kinematic.gravity_acceleration < 0:
+		player_kinematic.gravity_acceleration *= -1
 
 func use_slingshot():
 	player_kinematic.play_sfx("Slingshot")
 	player_kinematic.using_slingshot = true
-	player_kinematic.velocity += (player_kinematic.get_global_mouse_position() - player_kinematic.global_position).normalized() * rope_momentum
+
+	var degrees = 1.22 #(70 degrees)
+	player_kinematic.velocity = Vector2(cos(degrees) * player_kinematic.facing_dir, \
+										sin(-degrees) * player_kinematic.gravity_dir).normalized() * rope_momentum
+
 	piece_controller.de_attach_piece_enum(PieceType.SLINGSHOT)
