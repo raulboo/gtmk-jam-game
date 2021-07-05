@@ -1,9 +1,8 @@
-class_name Level
 extends Node2D
 
 signal next_level_key_pressed
 
-export(int) var pieces_needed_to_win = 1
+export(int) var coins_needed_to_win = 1
 export(PackedScene) var next_level 
 export(MusicManager.Loops) var music_loop = 1
 
@@ -14,7 +13,7 @@ func _ready():
 	$"Player/WinLabel".visible = false
 
 	MusicManager.switch_loop(music_loop)
-	$FinalPole.get_node("Label").text = "Needs %s coins!" % pieces_needed_to_win
+	$FinalPole.get_node("Label").text = "Needs %s coins!" % coins_needed_to_win
 
 func _process(_delta):
 	if Input.is_action_just_pressed("next_level"):
@@ -23,9 +22,9 @@ func _process(_delta):
 func on_player_dead():
 	$Player.position = original_player_position
 
-func on_player_reached_final_pole(pieces):
-	print("reached end with ", pieces, " pieces")
-	if pieces >= pieces_needed_to_win:
+func on_player_reached_final_pole(coins):
+	print("reached end with ", coins, " coins")
+	if coins >= coins_needed_to_win:
 		MusicManager.mute()
 		$SFX/Victory.play()
 		$"Player/WinLabel".visible = true

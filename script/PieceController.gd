@@ -19,6 +19,25 @@ class Slot:
 func _ready():
 	create_slots($PieceCenter.position)
 
+#hard code slots relative to the player
+func create_slots(piece_spawn):
+	var left = Slot.new()
+	left.position = Vector2(piece_spawn.x - sprite_piece_size, piece_spawn.y)
+	left.piece = null
+	left.collider = $"../LeftCollider"
+
+	var up = Slot.new()
+	up.position = Vector2(piece_spawn.x, piece_spawn.y - sprite_piece_size)
+	up.piece = null
+	up.collider = $"../UpCollider"
+
+	var right = Slot.new()
+	right.position = Vector2(piece_spawn.x + sprite_piece_size, piece_spawn.y)
+	right.piece = null
+	right.collider = $"../RightCollider"
+
+	slot_array = [left, up, right]
+
 #add a new piece to the player
 func attach_piece(piece):
 	if slot_array.size() > MAX_PIECES:
@@ -46,25 +65,6 @@ func de_attach_piece(piece):
 		piece.move_to_spawn()	
 		emit_signal("piece_de_attached", piece)
 
-#hard code slots relative to the player
-func create_slots(piece_spawn):
-	var left = Slot.new()
-	left.position = Vector2(piece_spawn.x - sprite_piece_size, piece_spawn.y)
-	left.piece = null
-	left.collider = $"../LeftCollider"
-
-	var up = Slot.new()
-	up.position = Vector2(piece_spawn.x, piece_spawn.y - sprite_piece_size)
-	up.piece = null
-	up.collider = $"../UpCollider"
-
-	var right = Slot.new()
-	right.position = Vector2(piece_spawn.x + sprite_piece_size, piece_spawn.y)
-	right.piece = null
-	right.collider = $"../RightCollider"
-
-	slot_array = [left, up, right]
-
 #returns the index of an available slot, if there are no slots available it returns -1
 func get_avaiable_slot(piece):
 	if find_piece_boolean(piece.type) == false && !has_piece_at(piece.prefer_slot):
@@ -86,7 +86,6 @@ func de_attach_all_pieces():
 		if slot.piece != null:
 			de_attach_piece(slot.piece)
 	
-#returns true if piece exists in the current arary
 func find_piece(piece_type_enum):
 	for slot in slot_array:
 		if slot.piece != null && slot.piece.type == piece_type_enum:

@@ -9,7 +9,6 @@ export(AudioStream) var gp2_stream
 func _ready():
 	switch_loop(Loops.MENU)	
 	
-	
 func switch_loop(new_loop):
 	match new_loop:
 		Loops.MENU:

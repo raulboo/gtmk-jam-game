@@ -1,5 +1,4 @@
 extends Node2D
-class_name PowerPiece
 
 enum PieceType {SLINGSHOT, LEGS, GRAVITY}
 enum SlotsEnum {LEFT, UP, RIGHT}
