@@ -1,94 +1,85 @@
 extends KinematicBody2D
 
-signal player_dead
+onready var animated_sprite = $AnimatedSprite
+onready var piece_holder = $PieceHolder
+onready var r_collider = $RightCollider
+onready var l_collider = $LeftCollider
 
-export(int) var gravity_acceleration = 30
-export(float) var jump_force = 1000
-export(float) var lateral_speed = 300
+export(float) var acceleration_speed = 100
+export(float) var de_acceleration = 100
+export(float) var max_speed = 300
+export(float) var jump_force = 300
+export(float) var gravity_force = 300
 
-var velocity = Vector2(0, 0)
+var velocity = Vector2.ZERO
+var acceleration = Vector2.ZERO
 
-var moving_lateral = 0
-var jumping = false
-var using_slingshot = false
+var facing_direction = 1
+var gravity_direction = 0
 
-var facing_dir = 1
-var gravity_dir = 1
+var moving_input_values = 0
+var jump_input = false
 
 func _process(_delta):
-	if Input.is_action_just_pressed("reset_level"):
-		self.die()
-
-	moving_lateral = 0
-	if Input.is_action_pressed("move_right"):
-		moving_lateral = 1
-	elif Input.is_action_pressed("move_left"):
-		moving_lateral = -1
-	
-	jumping = false
-	if Input.is_action_pressed("jump"):
-		jumping = true
-	
+	get_input()
 
 func _physics_process(_delta):
-	velocity.y += gravity_acceleration
-		
-	if !using_slingshot:
-		velocity.x = (moving_lateral * lateral_speed)
+	move()
+	calculate_animations()
+	calculate_directions()
 
-	if jumping && is_on_floor():
-		velocity.y -= jump_force * gravity_dir
-		play_sfx("Jump")
-		$AnimatedSprite.play("jump")
-	
-	#debug_checks()
+func get_input():
+	moving_input_values = 0
+	if Input.is_action_pressed("move_right"):
+		moving_input_values = 1
+	elif Input.is_action_pressed("move_left"):
+		moving_input_values = -1
 
-	gravity_dir = 1
-	if gravity_acceleration < 0:
-		gravity_dir = -1
+	jump_input = false
+	if Input.is_action_pressed("jump"):
+		jump_input = true
 
-	velocity = move_and_slide(velocity, Vector2(0, -gravity_dir))
+#physics calculations
+func move():
+	acceleration = Vector2.ZERO
 
-	if get_slide_count() > 0:
-		using_slingshot = false
-
-	check_hostile_collisions()
-	
-	if velocity.x != 0:
-		facing_dir = sign(velocity.x)
-		flip_to(facing_dir)
-		$AnimatedSprite.play("walking")
+	if moving_input_values == 0 and is_on_floor():
+		acceleration.x = -sign(velocity.x) * de_acceleration
 	else:
-		$AnimatedSprite.play("idle")
+		acceleration.x = acceleration_speed * moving_input_values
 
+	acceleration.y = gravity_force
+
+	if jump_input and is_on_floor():
+		acceleration.y = -jump_force * gravity_direction
+
+	velocity += acceleration
+
+	if(abs(velocity.x) < 0.1):
+		velocity.x = 0
+	
+	velocity.x = clamp(velocity.x, -max_speed, max_speed);
+
+	velocity = move_and_slide(velocity, Vector2(0, -gravity_direction))
+
+#plays the proper animations
+func calculate_animations():
+	if velocity.x != 0:
+		flip_to(facing_direction)
+		animated_sprite.play("walking")
+	else:
+		animated_sprite.play("idle")
+
+#calculate facing direction and gravity direction
+func calculate_directions():
+	gravity_direction = sign(gravity_force)
+
+	if velocity.x != 0:
+		facing_direction = sign(velocity.x)
+
+#flips player to direction
 func flip_to(direction):
-	$AnimatedSprite.flip_h = (direction < 0)
-	$PieceHolder.scale.x = direction
-	$RightCollider.position.x = abs($RightCollider.position.x) * direction
-	$LeftCollider.position.x = abs($LeftCollider.position.x) * -direction
-
-func check_hostile_collisions():
-	for i in get_slide_count():
-		var object = get_slide_collision(i).collider
-		if object.is_in_group("hostile"):
-			die()
-
-func play_sfx(name : String):
-	$SFX.get_node(name).play()
-
-func die():
-	$SFX/Death.play()
-	$PieceController.de_attach_all_pieces()
-	$PowerUpManager.reset_gravity()
-	emit_signal("player_dead")
-
-#debug
-var is_noclipping := false
-func debug_checks():
-	if Input.is_action_just_pressed("debug_noclip"):
-		is_noclipping = !is_noclipping
-	if is_noclipping:
-		velocity = ((int(Input.is_action_pressed("ui_up")) * Vector2(0, -1)) +
-					(int(Input.is_action_pressed("ui_down")) * Vector2(0, 1)) +
-					(int(Input.is_action_pressed("ui_left")) * Vector2(-1, 0)) +
-					(int(Input.is_action_pressed("ui_right")) * Vector2(1, 0))) * jump_force
+	animated_sprite.flip_h = (direction < 0)
+	piece_holder.scale.x = direction
+	r_collider.position.x = abs($RightCollider.position.x) * direction
+	l_collider.position.x = abs($LeftCollider.position.x) * -direction

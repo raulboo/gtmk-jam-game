@@ -1,44 +1,47 @@
 extends Node
+
 enum PieceType {SLINGSHOT, LEGS, GRAVITY}
+
 onready var piece_controller = $"../PieceController"
-onready var player_kinematic = get_parent()
+onready var player_kinematic = $"../"
+onready var sound_player = $"../SoundPlayer"
+
 export(float) var rope_momentum = 1000
 
 func _input(event):
 	#gravity
-	if event.is_action_pressed("invert_gravity"):
-		if player_kinematic.gravity_acceleration < 0:
+	if event.is_action_pressed("invert_gravity") and piece_controller.find_piece_boolean(PieceType.GRAVITY):
+		if player_kinematic.gravity_force < 0:
 			piece_controller.de_attach_piece_enum(PieceType.GRAVITY)
-		elif piece_controller.find_piece_boolean(PieceType.GRAVITY):
-				invert_gravity()
+		else:
+			invert_gravity()
 			
 	#rope
-	if event.is_action_pressed("trigger_slingshot") && piece_controller.find_piece_boolean(PieceType.SLINGSHOT):
+	if event.is_action_pressed("trigger_slingshot") and piece_controller.find_piece_boolean(PieceType.SLINGSHOT):
 		use_slingshot()
 
 func on_piece_attached(_piece):
-	player_kinematic.play_sfx("Click")
+	sound_player.play_sfx("click")
 	
 func on_piece_de_attached(piece):
-	player_kinematic.play_sfx("Click")
+	sound_player.play_sfx("click")
 
 	if piece.type == PieceType.GRAVITY:
 		reset_gravity()
-
+		
 func invert_gravity():
-	player_kinematic.play_sfx("Gravity")
-	player_kinematic.gravity_acceleration *= -1
+	sound_player.play_sfx("gravity")
+	player_kinematic.gravity_force *= -1
 
 func reset_gravity():
-	if player_kinematic.gravity_acceleration < 0:
-		player_kinematic.gravity_acceleration *= -1
+	if player_kinematic.gravity_force < 0:
+		player_kinematic.gravity_force *= -1
 
 func use_slingshot():
-	player_kinematic.play_sfx("Slingshot")
-	player_kinematic.using_slingshot = true
+	sound_player.play_sfx("slingshot")
 
 	var degrees = 1.22 #(70 degrees)
-	player_kinematic.velocity = Vector2(cos(degrees) * player_kinematic.facing_dir, \
-										sin(-degrees) * player_kinematic.gravity_dir).normalized() * rope_momentum
+	player_kinematic.velocity = Vector2(cos(degrees) * player_kinematic.facing_direction, \
+										sin(-degrees) * player_kinematic.gravity_direction).normalized() * rope_momentum
 
 	piece_controller.de_attach_piece_enum(PieceType.SLINGSHOT)

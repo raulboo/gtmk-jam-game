@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/music/Clicking All Day Long.wav" type="AudioStream" id=4]
 
 [node name="MusicManager" type="AudioStreamPlayer"]
-volume_db = -10.0
+bus = "Music"
 script = ExtResource( 3 )
 menu_stream = ExtResource( 1 )
 gp1_stream = ExtResource( 4 )

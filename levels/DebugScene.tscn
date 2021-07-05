@@ -15,23 +15,27 @@ music_loop = 0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 248, 616 )
-gravity_acceleration = 35
+acceleration_speed = 200.0
+de_acceleration = 50.0
+max_speed = 300.0
+jump_force = 1000.0
+gravity_force = 50.0
 
 [node name="FinalPole" parent="." instance=ExtResource( 4 )]
 position = Vector2( 368, 512 )
 
 [node name="PowerUp" parent="." instance=ExtResource( 5 )]
-position = Vector2( 552, 592 )
+position = Vector2( 584, 600 )
 
 [node name="PowerUp2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 600, 592 )
+position = Vector2( 672, 320 )
 type = 1
 
 [node name="PowerUp4" parent="." instance=ExtResource( 5 )]
 position = Vector2( 264, 296 )
 
 [node name="PowerUp3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 432, -40 )
+position = Vector2( 496, 584 )
 type = 2
 
 [node name="SFX" type="Node" parent="."]
@@ -54,4 +58,4 @@ show_collision = true
 format = 1
 tile_data = PoolIntArray( 10, -1073741823, 0, 65546, -1073741823, 0, 131082, -1073741823, 0, 393247, -1073741824, 0, 458783, -1073741823, 0, 524319, -1073741824, 0, 589855, -1073741824, 0, 655391, -1073741824, 0, 720927, -1073741824, 0, 786463, -1073741823, 0, 851999, -1073741823, 0, 917535, -1073741823, 0, 983071, -1073741824, 0, 1048607, -1073741823, 0, 1114143, -1073741823, 0, 1179679, -1073741823, 0, 1245215, -1073741824, 0 )
 
-[connection signal="reached_end" from="FinalPole" to="." method="_on_FinalPole_reached_end"]
+[connection signal="reached_end" from="FinalPole" to="." method="on_player_reached_final_pole"]
