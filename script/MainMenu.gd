@@ -10,7 +10,7 @@ export(PackedScene) var first_level
 var current_selection = 0
 
 func _process(_delta):
-	if Input.is_action_pressed("start_game"):
+	if Input.is_action_pressed("ui_accept"):
 		get_tree().change_scene_to(first_level)
 		
 #func _ready():

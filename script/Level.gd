@@ -16,7 +16,7 @@ func _ready():
 	$FinalPole.get_node("Label").text = "Needs %s coins!" % coins_needed_to_win
 
 func _process(_delta):
-	if Input.is_action_just_pressed("next_level"):
+	if Input.is_action_just_pressed("ui_accept"):
 		emit_signal("next_level_key_pressed")
 
 func on_player_dead():

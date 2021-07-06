@@ -8,16 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Node2D",
-"class": "PowerPiece",
-"language": "GDScript",
-"path": "res://script/PowerPiece.gd"
-} ]
-_global_script_class_icons={
-"PowerPiece": ""
-}
-
 [application]
 
 config/name="Make It Click"

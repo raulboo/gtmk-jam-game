@@ -8,8 +8,7 @@ const MAX_PIECES = 3
 export(float) var sprite_piece_size = 32
 
 var slot_array = []
-onready var player = get_parent()
-onready var game_scene = get_node("/root/Level") #TODO: keep an eye on this
+onready var player = $"../"
 
 class Slot:
 	var position
@@ -18,7 +17,7 @@ class Slot:
 
 func _ready():
 	create_slots($PieceCenter.position)
-
+	
 #hard code slots relative to the player
 func create_slots(piece_spawn):
 	var left = Slot.new()
@@ -60,9 +59,7 @@ func de_attach_piece(piece):
 	if find_piece_boolean(piece.type) == true:
 		slot_array[piece.attached_slot].collider.disabled = true
 		slot_array[piece.attached_slot].piece = null
-		piece.change_parent(game_scene)
-		piece.set_de_attached()		
-		piece.move_to_spawn()	
+		piece.reset(true)
 		emit_signal("piece_de_attached", piece)
 
 #returns the index of an available slot, if there are no slots available it returns -1

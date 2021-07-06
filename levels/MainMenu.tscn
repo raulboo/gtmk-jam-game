@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/props/final_pole/FinalPole.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=2]
@@ -11,24 +11,19 @@
 [ext_resource path="res://levels/DebugScene.tscn" type="PackedScene" id=9]
 
 [sub_resource type="DynamicFont" id=1]
-outline_size = 4
-outline_color = Color( 0, 0, 0, 1 )
+size = 48
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 48
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 48
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 32
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -50,51 +45,6 @@ margin_right = 1024.0
 margin_bottom = 600.0
 color = Color( 0.339621, 0.210663, 0.457031, 1 )
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
-
-[node name="Label" type="Label" parent="MarginContainer"]
-margin_top = 7.0
-margin_right = 1024.0
-margin_bottom = 593.0
-grow_horizontal = 2
-grow_vertical = 2
-custom_fonts/font = SubResource( 1 )
-text = "
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-GMTK Jam 2021"
-align = 2
-valign = 2
-
 [node name="CenterContainer" type="CenterContainer" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
@@ -112,7 +62,7 @@ margin_bottom = 48.0
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer"]
 margin_right = 672.0
 margin_bottom = 48.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 8
 custom_constants/shadow_offset_y = 8
@@ -145,7 +95,7 @@ margin_bottom = 48.0
 [node name="Selector" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer"]
 margin_right = 48.0
 margin_bottom = 48.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = ">"
 
@@ -172,7 +122,7 @@ margin_bottom = 48.0
 [node name="Selector" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer"]
 margin_right = 48.0
 margin_bottom = 48.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = ">"
 
@@ -190,7 +140,7 @@ text = "Exit"
 margin_left = 144.0
 margin_right = 528.0
 margin_bottom = 32.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 4
@@ -210,7 +160,6 @@ position = Vector2( 240, 392 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 2 )
 animation = "dancing"
-frame = 4
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
@@ -222,4 +171,4 @@ playing = true
 [node name="AnimatedSprite3" type="AnimatedSprite" parent="."]
 position = Vector2( 496, 384 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 5 )
+frames = SubResource( 4 )

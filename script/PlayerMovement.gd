@@ -20,10 +20,8 @@ var gravity_direction = 0
 var moving_input_values = 0
 var jump_input = false
 
-func _process(_delta):
-	get_input()
-
 func _physics_process(_delta):
+	get_input()
 	move()
 	calculate_animations()
 	calculate_directions()
@@ -36,7 +34,7 @@ func get_input():
 		moving_input_values = -1
 
 	jump_input = false
-	if Input.is_action_pressed("jump"):
+	if Input.is_action_just_pressed("jump"):
 		jump_input = true
 
 #physics calculations
@@ -65,8 +63,12 @@ func move():
 #plays the proper animations
 func calculate_animations():
 	if velocity.x != 0:
-		flip_to(facing_direction)
+		if facing_direction != -sign(velocity.x):
+			flip_to(facing_direction)
+		
 		animated_sprite.play("walking")
+	elif !is_on_floor():
+		animated_sprite.play("jump")
 	else:
 		animated_sprite.play("idle")
 
@@ -81,5 +83,5 @@ func calculate_directions():
 func flip_to(direction):
 	animated_sprite.flip_h = (direction < 0)
 	piece_holder.scale.x = direction
-	r_collider.position.x = abs($RightCollider.position.x) * direction
-	l_collider.position.x = abs($LeftCollider.position.x) * -direction
+	r_collider.position.x = abs(r_collider.position.x) * direction
+	l_collider.position.x = abs(l_collider.position.x) * -direction

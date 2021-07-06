@@ -1,10 +1,12 @@
 extends Node2D
 
 enum PieceType {SLINGSHOT, LEGS, GRAVITY}
-enum SlotsEnum {LEFT, UP, RIGHT}
 
 export(PieceType) var type
 
+onready var player_piece_controller = get_node("/root/Level/Player/PieceController")
+
+var enabled = false
 var prefer_slot
 var spawn_position
 var attached_slot = -1
@@ -18,16 +20,21 @@ func _ready():
 func hardcode_positions():
 	match type:
 		PieceType.SLINGSHOT:
-			prefer_slot = SlotsEnum.UP
+			prefer_slot = 1 #up
 		PieceType.LEGS:
-			prefer_slot = SlotsEnum.RIGHT
+			prefer_slot = 2 #front
 		PieceType.GRAVITY:
-			prefer_slot = SlotsEnum.UP
+			prefer_slot = 1 #up
 
-#change this piece parent (probably call with deffer_call)
-func change_parent(parent_node):
-	self.get_parent().remove_child(self)
-	parent_node.add_child(self)
+func reset(active):
+	self.enabled = active
+	change_parent($"/root/Level")
+	set_de_attached()
+	move_to_spawn()
+	
+	self.visible = false
+	if active:
+		self.visible = true
 	
 #orientates the sprite accordingly
 func set_piece_position(position, slot_index):
@@ -48,8 +55,11 @@ func set_attached(index):
 func set_de_attached():
 	attached_slot = -1
 
-#TODO: watch this
-onready var player_piece_controller = get_node("/root/Level/Player/PieceController")
+#change this piece parent
+func change_parent(parent_node):
+	self.get_parent().remove_child(self)
+	parent_node.add_child(self)
+
 func on_body_entered(body):
 	if body.is_in_group("player") && attached_slot == -1:
 		player_piece_controller.call_deferred("attach_piece", self)
