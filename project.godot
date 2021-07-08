@@ -19,6 +19,7 @@ boot_splash/bg_color=Color( 1, 1, 1, 1 )
 [autoload]
 
 MusicManager="*res://scenes/autoloads/MusicManager.tscn"
+GlobalScript="*res://scenes/autoloads/GlobalScript.tscn"
 
 [display]
 

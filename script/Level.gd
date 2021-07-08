@@ -29,7 +29,7 @@ func on_player_reached_final_pole(coins):
 		$SFX/Victory.play()
 		$"Player/WinLabel".visible = true
 
-		# Display animation or followup to the next level
+		# display animation or followup to the next level
 		yield(self, "next_level_key_pressed")
 		
 		get_tree().call_deferred("change_scene_to", next_level)

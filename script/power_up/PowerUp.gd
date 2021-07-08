@@ -1,7 +1,6 @@
 extends Node2D
 
-enum PieceType {SLINGSHOT, LEGS, GRAVITY}
-export(PieceType) var type
+export(GlobalScript.PieceType) var type
 
 onready var player_piece_controller = get_node("/root/Level/Player/PowerUpAttacher")
 
@@ -11,18 +10,18 @@ var spawn_position
 var attached_slot = -1
 
 func _ready():
-	$Sprite.play(PieceType.keys()[type])
+	$Sprite.play(GlobalScript.PieceType.keys()[type])
 	spawn_position = self.global_position
 	hardcode_positions()
 
 #preferable positions for the power-up
 func hardcode_positions():
 	match type:
-		PieceType.SLINGSHOT:
+		GlobalScript.PieceType.SLINGSHOT:
 			prefer_slot = 1 #up
-		PieceType.LEGS:
+		GlobalScript.PieceType.LEGS:
 			prefer_slot = 2 #front
-		PieceType.GRAVITY:
+		GlobalScript.PieceType.GRAVITY:
 			prefer_slot = 1 #up
 
 func reset(active):

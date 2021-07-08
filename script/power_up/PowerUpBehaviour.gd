@@ -1,5 +1,4 @@
 extends Node
-enum PieceType {SLINGSHOT, LEGS, GRAVITY}
 
 onready var player_movement = $"../"
 onready var power_up_attacher = $"../PowerUpAttacher"
@@ -13,19 +12,19 @@ func on_piece_attached(_piece):
 func on_piece_de_attached(piece):
 	sound_player.play_sfx("click")
 
-	if piece.type == PieceType.GRAVITY:
+	if piece.type == GlobalScript.PieceType.GRAVITY:
 		reset_gravity()
 
 func _input(event):
 	#gravity
-	if event.is_action_pressed("invert_gravity") and power_up_attacher.find_piece_boolean(PieceType.GRAVITY):
+	if event.is_action_pressed("invert_gravity") and power_up_attacher.find_piece_boolean(GlobalScript.PieceType.GRAVITY):
 		if player_movement.gravity_force < 0:
-			power_up_attacher.de_attach_piece_enum(PieceType.GRAVITY)
+			power_up_attacher.de_attach_piece_enum(GlobalScript.PieceType.GRAVITY)
 		else:
 			invert_gravity()
 			
 	#rope
-	if event.is_action_pressed("trigger_slingshot") and power_up_attacher.find_piece_boolean(PieceType.SLINGSHOT):
+	if event.is_action_pressed("trigger_slingshot") and power_up_attacher.find_piece_boolean(GlobalScript.PieceType.SLINGSHOT):
 		use_slingshot()
 		
 func invert_gravity():
@@ -43,4 +42,4 @@ func use_slingshot():
 	player_movement.velocity = Vector2(cos(degrees) * player_movement.facing_direction, \
 										sin(-degrees) * player_movement.gravity_direction) * rope_momentum
 
-	power_up_attacher.de_attach_piece_enum(PieceType.SLINGSHOT)
+	power_up_attacher.de_attach_piece_enum(GlobalScript.PieceType.SLINGSHOT)
