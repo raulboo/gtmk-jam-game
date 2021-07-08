@@ -14,11 +14,7 @@ music_loop = 0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 248, 616 )
-acceleration_speed = 200.0
-de_acceleration = 50.0
-max_speed = 250.0
-jump_force = 1000.0
-gravity_force = 50.0
+acceleration_speed = 0.25
 
 [node name="FinalPole" parent="." instance=ExtResource( 4 )]
 position = Vector2( 368, 512 )

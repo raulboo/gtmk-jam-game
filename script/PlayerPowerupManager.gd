@@ -41,6 +41,6 @@ func use_slingshot():
 
 	var degrees = 1.22 #(70 degrees)
 	player_kinematic.velocity = Vector2(cos(degrees) * player_kinematic.facing_direction, \
-										sin(-degrees) * player_kinematic.gravity_direction).normalized() * rope_momentum
+										sin(-degrees) * player_kinematic.gravity_direction) * rope_momentum
 
 	piece_controller.de_attach_piece_enum(PieceType.SLINGSHOT)

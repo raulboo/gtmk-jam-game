@@ -5,14 +5,15 @@ onready var piece_holder = $PieceHolder
 onready var r_collider = $RightCollider
 onready var l_collider = $LeftCollider
 
-export(float) var acceleration_speed = 100
-export(float) var de_acceleration = 100
-export(float) var max_speed = 300
-export(float) var jump_force = 300
-export(float) var gravity_force = 300
+export(float) var acceleration_speed = 0.25
+export(float) var de_acceleration = 0.5
+export(float) var max_walking_speed = 300
+export(float) var max_running_speed = 450
+export(float) var jump_force = 900
+export(float) var gravity_force = 4000
 
 var velocity = Vector2.ZERO
-var acceleration = Vector2.ZERO
+var current_max_speed = max_walking_speed
 
 var facing_direction = 1
 var gravity_direction = 0
@@ -20,9 +21,9 @@ var gravity_direction = 0
 var moving_input_values = 0
 var jump_input = false
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	get_input()
-	move()
+	move(delta)
 	calculate_animations()
 	calculate_directions()
 
@@ -30,7 +31,7 @@ func get_input():
 	moving_input_values = 0
 	if Input.is_action_pressed("move_right"):
 		moving_input_values = 1
-	elif Input.is_action_pressed("move_left"):
+	if Input.is_action_pressed("move_left"):
 		moving_input_values = -1
 
 	jump_input = false
@@ -38,26 +39,20 @@ func get_input():
 		jump_input = true
 
 #physics calculations
-func move():
-	acceleration = Vector2.ZERO
+func move(delta):
+	if  moving_input_values != 0:
+		velocity.x = lerp(velocity.x, moving_input_values * current_max_speed, acceleration_speed)
+	elif moving_input_values == 0 and is_on_floor():
+		velocity.x = lerp(velocity.x, 0, de_acceleration)
 
-	if moving_input_values == 0 and is_on_floor():
-		acceleration.x = -sign(velocity.x) * de_acceleration
-	else:
-		acceleration.x = acceleration_speed * moving_input_values
-
-	acceleration.y = gravity_force
+	velocity.y += gravity_force * delta
 
 	if jump_input and is_on_floor():
-		acceleration.y = -jump_force * gravity_direction
+		velocity.y = -jump_force * gravity_direction
 
-	velocity += acceleration
-
-	if(abs(velocity.x) < 0.1):
+	if(abs(velocity.x) < 1):
 		velocity.x = 0
 	
-	velocity.x = clamp(velocity.x, -max_speed, max_speed);
-
 	velocity = move_and_slide(velocity, Vector2(0, -gravity_direction))
 
 #plays the proper animations

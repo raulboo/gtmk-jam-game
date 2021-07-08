@@ -1,7 +1,6 @@
 extends Node2D
 
 enum PieceType {SLINGSHOT, LEGS, GRAVITY}
-
 export(PieceType) var type
 
 onready var player_piece_controller = get_node("/root/Level/Player/PieceController")
