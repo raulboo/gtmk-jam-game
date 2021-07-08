@@ -4,6 +4,7 @@ signal piece_attached(type_string)
 signal piece_de_attached(type_string)
 
 onready var player = $"../"
+onready var piece_holder = $"../PieceHolder"
 var slot_array = []
 
 class Slot:
@@ -13,7 +14,7 @@ class Slot:
 
 func _ready():
 	create_slots($PieceCenter.position)
-	
+
 #hard code slots relative to the player
 func create_slots(piece_spawn):
 	var sprite_piece_size = 32
@@ -41,8 +42,8 @@ func attach_piece(piece):
 	if slot_index == -1:
 		return
 
-	if find_piece_boolean(piece.type) == false:
-		piece.change_parent(player.get_node("PieceHolder"))
+	if find_piece(piece.type) == false:
+		piece.change_parent(piece_holder)
 		piece.set_piece_position(slot_array[slot_index].position, slot_index)
 		piece.set_attached(slot_index)
 		slot_array[slot_index].piece = piece
@@ -51,15 +52,16 @@ func attach_piece(piece):
 	
 #removes the selected piece
 func de_attach_piece(piece):
-	if find_piece_boolean(piece.type) == true:
+	if find_piece(piece.type) == true:
 		slot_array[piece.attached_slot].collider.disabled = true
 		slot_array[piece.attached_slot].piece = null
-		piece.reset(true)
+		piece.change_parent($"/root/Level")
+		piece.destroy()
 		emit_signal("piece_de_attached", piece)
 
 #returns the index of an available slot, if there are no slots available it returns -1
 func get_avaiable_slot(piece):
-	if find_piece_boolean(piece.type) == false && !has_piece_at(piece.prefer_slot):
+	if find_piece(piece.type) == false && !has_piece_at(piece.prefer_slot):
 		return piece.prefer_slot
 	
 	for i in slot_array.size():
@@ -68,25 +70,30 @@ func get_avaiable_slot(piece):
 	
 	return -1
 
+#de attaches the piece (passed as enum)
 func de_attach_piece_enum(piece_type_enum):
-	var piece = find_piece(piece_type_enum)
+	var piece = get_piece(piece_type_enum)
 	if piece != null:
 		de_attach_piece(piece)
 
+#de attaches all pieces
 func de_attach_all_pieces():
 	for slot in slot_array:
 		if slot.piece != null:
 			de_attach_piece(slot.piece)
-	
-func find_piece(piece_type_enum):
+
+#returns the piece if it exists or null otherwise
+func get_piece(piece_type_enum):
 	for slot in slot_array:
 		if slot.piece != null && slot.piece.type == piece_type_enum:
 			return slot.piece
 	return null
 
-func find_piece_boolean(piece_type_enum):
-	return find_piece(piece_type_enum) != null
+#returns true/false if the piece exists
+func find_piece(piece_type_enum):
+	return get_piece(piece_type_enum) != null
 
+#returns true if the player has a piece on 'slot'
 func has_piece_at(slot):
 	if slot < slot_array.size():
 		return slot_array[slot].piece != null

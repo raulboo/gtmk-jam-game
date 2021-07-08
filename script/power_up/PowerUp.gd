@@ -4,7 +4,6 @@ export(GlobalScript.PieceType) var type
 
 onready var player_piece_controller = get_node("/root/Level/Player/PowerUpAttacher")
 
-var enabled = false
 var prefer_slot = 1
 var spawn_position
 var attached_slot = -1
@@ -17,23 +16,18 @@ func _ready():
 #preferable positions for the power-up
 func hardcode_positions():
 	match type:
+		#back:0 up:1 front:2
 		GlobalScript.PieceType.SLINGSHOT:
-			prefer_slot = 1 #up
+			prefer_slot = 1
 		GlobalScript.PieceType.LEGS:
-			prefer_slot = 2 #front
+			prefer_slot = 2
 		GlobalScript.PieceType.GRAVITY:
-			prefer_slot = 1 #up
+			prefer_slot = 1
 
-func reset(active):
-	self.enabled = active
-	change_parent($"/root/Level")
-	attached_slot = -1
-	move_to_spawn()
-	
-	self.visible = false
-	if active:
-		self.visible = true
-	
+			#destroys the piece
+func destroy():
+	queue_free()
+
 #orientates the sprite accordingly
 func set_piece_position(position, slot_index):
 	$Sprite.rotation_degrees = -90 + (slot_index * 90) 
@@ -43,10 +37,6 @@ func set_piece_position(position, slot_index):
 func move_to (pos):
 	self.global_position = pos
 
-#return piece to spawn, useful later for animation
-func move_to_spawn ():
-	self.global_position = spawn_position
-	
 func set_attached(index):
 	attached_slot = index
 
