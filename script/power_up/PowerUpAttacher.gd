@@ -3,12 +3,8 @@ extends Node
 signal piece_attached(type_string)
 signal piece_de_attached(type_string)
 
-const MAX_PIECES = 3
-
-export(float) var sprite_piece_size = 32
-
-var slot_array = []
 onready var player = $"../"
+var slot_array = []
 
 class Slot:
 	var position
@@ -20,6 +16,8 @@ func _ready():
 	
 #hard code slots relative to the player
 func create_slots(piece_spawn):
+	var sprite_piece_size = 32
+
 	var left = Slot.new()
 	left.position = Vector2(piece_spawn.x - sprite_piece_size, piece_spawn.y)
 	left.piece = null
@@ -39,9 +37,6 @@ func create_slots(piece_spawn):
 
 #add a new piece to the player
 func attach_piece(piece):
-	if slot_array.size() > MAX_PIECES:
-		return
-
 	var slot_index = get_avaiable_slot(piece)
 	if slot_index == -1:
 		return
@@ -67,7 +62,7 @@ func get_avaiable_slot(piece):
 	if find_piece_boolean(piece.type) == false && !has_piece_at(piece.prefer_slot):
 		return piece.prefer_slot
 	
-	for i in MAX_PIECES:
+	for i in slot_array.size():
 		if slot_array[i].piece == null:
 			return i
 	
@@ -93,13 +88,6 @@ func find_piece_boolean(piece_type_enum):
 	return find_piece(piece_type_enum) != null
 
 func has_piece_at(slot):
-	if slot < MAX_PIECES:
+	if slot < slot_array.size():
 		return slot_array[slot].piece != null
 	return false
-
-func piece_count():
-	var count = 0
-	for slot in slot_array:
-		if slot.piece != null:
-			count += 1
-	return count

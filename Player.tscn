@@ -1,9 +1,9 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://script/PlayerPowerupManager.gd" type="Script" id=2]
-[ext_resource path="res://script/PieceController.gd" type="Script" id=3]
-[ext_resource path="res://script/PlayerMovement.gd" type="Script" id=4]
+[ext_resource path="res://script/power_up/PowerUpBehaviour.gd" type="Script" id=2]
+[ext_resource path="res://script/power_up/PowerUpAttacher.gd" type="Script" id=3]
+[ext_resource path="res://script/player/PlayerMovement.gd" type="Script" id=4]
 [ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/sfx/walk.mp3" type="AudioStream" id=6]
 [ext_resource path="res://assets/sfx/jump.mp3" type="AudioStream" id=7]
@@ -12,7 +12,7 @@
 [ext_resource path="res://assets/sfx/gravity.mp3" type="AudioStream" id=10]
 [ext_resource path="res://assets/sfx/death.mp3" type="AudioStream" id=11]
 [ext_resource path="res://assets/sfx/click.wav" type="AudioStream" id=12]
-[ext_resource path="res://script/PlayerLogic.gd" type="Script" id=13]
+[ext_resource path="res://script/player/PlayerLogic.gd" type="Script" id=13]
 [ext_resource path="res://script/SoundPlayer.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -32,7 +32,6 @@ font_data = ExtResource( 5 )
 position = Vector2( 728, 512 )
 script = ExtResource( 4 )
 acceleration_speed = 50.0
-max_speed = 500.0
 
 [node name="PlayerLogic" type="Node" parent="."]
 script = ExtResource( 13 )
@@ -56,10 +55,13 @@ smoothing_speed = 10.0
 position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
-[node name="PieceController" type="Node2D" parent="."]
+[node name="PowerUpBehaviour" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="PowerUpAttacher" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
-[node name="PieceCenter" type="Node2D" parent="PieceController"]
+[node name="PieceCenter" type="Node2D" parent="PowerUpAttacher"]
 position = Vector2( 0, -32 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -86,10 +88,6 @@ position = Vector2( 0, -64 )
 shape = SubResource( 2 )
 disabled = true
 
-[node name="PowerUpManager" type="Node" parent="."]
-script = ExtResource( 2 )
-rope_momentum = 1500.0
-
 [node name="WinLabel" type="Label" parent="."]
 visible = false
 margin_left = -144.0
@@ -115,5 +113,5 @@ gravity = ExtResource( 10 )
 walking = ExtResource( 6 )
 slingshot = ExtResource( 8 )
 
-[connection signal="piece_attached" from="PieceController" to="PowerUpManager" method="on_piece_attached"]
-[connection signal="piece_de_attached" from="PieceController" to="PowerUpManager" method="on_piece_de_attached"]
+[connection signal="piece_attached" from="PowerUpAttacher" to="PowerUpBehaviour" method="on_piece_attached"]
+[connection signal="piece_de_attached" from="PowerUpAttacher" to="PowerUpBehaviour" method="on_piece_de_attached"]

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://script/Level.gd" type="Script" id=2]
-[ext_resource path="res://assets/box-tilemap/tileset_box-tilemap2.tres" type="TileSet" id=3]
+[ext_resource path="res://assets/box_tilemap/tileset_box-tilemap2.tres" type="TileSet" id=3]
 [ext_resource path="res://FinalPole.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/powerup_system/PowerUp.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sfx/win.mp3" type="AudioStream" id=6]
@@ -23,14 +23,14 @@ position = Vector2( 368, 512 )
 position = Vector2( 584, 600 )
 
 [node name="PowerUp2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 672, 320 )
+position = Vector2( 640, 600 )
 type = 1
 
 [node name="PowerUp4" parent="." instance=ExtResource( 5 )]
-position = Vector2( 264, 296 )
+position = Vector2( 696, 600 )
 
 [node name="PowerUp3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 496, 584 )
+position = Vector2( 528, 600 )
 type = 2
 
 [node name="SFX" type="Node" parent="."]

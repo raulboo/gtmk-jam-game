@@ -18,7 +18,7 @@ var current_max_speed = max_walking_speed
 var facing_direction = 1
 var gravity_direction = 0
 
-var moving_input_values = 0
+var moving_input = 0
 var jump_input = false
 
 func _physics_process(delta):
@@ -28,11 +28,11 @@ func _physics_process(delta):
 	calculate_directions()
 
 func get_input():
-	moving_input_values = 0
+	moving_input = 0
 	if Input.is_action_pressed("move_right"):
-		moving_input_values = 1
+		moving_input = 1
 	if Input.is_action_pressed("move_left"):
-		moving_input_values = -1
+		moving_input = -1
 
 	jump_input = false
 	if Input.is_action_just_pressed("jump"):
@@ -40,9 +40,9 @@ func get_input():
 
 #physics calculations
 func move(delta):
-	if  moving_input_values != 0:
-		velocity.x = lerp(velocity.x, moving_input_values * current_max_speed, acceleration_speed)
-	elif moving_input_values == 0 and is_on_floor():
+	if  moving_input != 0:
+		velocity.x = lerp(velocity.x, moving_input * current_max_speed, acceleration_speed)
+	elif moving_input == 0 and is_on_floor():
 		velocity.x = lerp(velocity.x, 0, de_acceleration)
 
 	velocity.y += gravity_force * delta

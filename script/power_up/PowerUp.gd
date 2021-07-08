@@ -3,10 +3,10 @@ extends Node2D
 enum PieceType {SLINGSHOT, LEGS, GRAVITY}
 export(PieceType) var type
 
-onready var player_piece_controller = get_node("/root/Level/Player/PieceController")
+onready var player_piece_controller = get_node("/root/Level/Player/PowerUpAttacher")
 
 var enabled = false
-var prefer_slot
+var prefer_slot = 1
 var spawn_position
 var attached_slot = -1
 
@@ -28,7 +28,7 @@ func hardcode_positions():
 func reset(active):
 	self.enabled = active
 	change_parent($"/root/Level")
-	set_de_attached()
+	attached_slot = -1
 	move_to_spawn()
 	
 	self.visible = false
@@ -40,7 +40,7 @@ func set_piece_position(position, slot_index):
 	$Sprite.rotation_degrees = -90 + (slot_index * 90) 
 	self.position = position
 
-#change global position of this piece
+#change global position of this piece, useful later for animation
 func move_to (pos):
 	self.global_position = pos
 
@@ -50,9 +50,6 @@ func move_to_spawn ():
 	
 func set_attached(index):
 	attached_slot = index
-	
-func set_de_attached():
-	attached_slot = -1
 
 #change this piece parent
 func change_parent(parent_node):

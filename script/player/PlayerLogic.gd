@@ -17,6 +17,6 @@ func check_hostile_collisions():
 
 func die():
 	sound_player.play_sfx("death")
-	$"../PieceController".de_attach_all_pieces()
-	$"../PowerUpManager".reset_gravity()
+	$"../PowerUpAttacher".de_attach_all_pieces()
+	$"../PowerUpBehaviour".reset_gravity()
 	emit_signal("player_dead")

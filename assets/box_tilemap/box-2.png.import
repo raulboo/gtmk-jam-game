@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/box-alt3.png-f82dc45c2b2d847c1b49f959e8c643cb.stex"
+path="res://.import/box-2.png-53c57de28ecdfcef56dd6f95bad359a1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/box-tilemap/box-alt3.png"
-dest_files=[ "res://.import/box-alt3.png-f82dc45c2b2d847c1b49f959e8c643cb.stex" ]
+source_file="res://assets/box_tilemap/box-2.png"
+dest_files=[ "res://.import/box-2.png-53c57de28ecdfcef56dd6f95bad359a1.stex" ]
 
 [params]
 

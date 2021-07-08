@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/box-alt2.png-ac2361083f6a8aba6dc135a90d964593.stex"
+path="res://.import/box-alt2.png-12a74e2e41ebb201d5bdd9455b853c01.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/box-tilemap/box-alt2.png"
-dest_files=[ "res://.import/box-alt2.png-ac2361083f6a8aba6dc135a90d964593.stex" ]
+source_file="res://assets/box_tilemap/box-alt2.png"
+dest_files=[ "res://.import/box-alt2.png-12a74e2e41ebb201d5bdd9455b853c01.stex" ]
 
 [params]
 
