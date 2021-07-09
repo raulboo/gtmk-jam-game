@@ -38,7 +38,7 @@ func reset_gravity():
 func use_slingshot():
 	sound_player.play_sfx("slingshot")
 
-	var degrees = 1.22 #(70 degrees)
+	var degrees = 1.22 #(around 70 degrees)
 	player_movement.velocity = Vector2(cos(degrees) * player_movement.facing_direction, \
 										sin(-degrees) * player_movement.gravity_direction) * rope_momentum
 

@@ -5,12 +5,13 @@ signal piece_de_attached(type_string)
 
 onready var player = $"../"
 onready var piece_holder = $"../PieceHolder"
-var slot_array = []
 
 class Slot:
 	var position
 	var piece
 	var collider
+
+var slot_array = []
 
 func _ready():
 	create_slots($PieceCenter.position)
@@ -43,9 +44,7 @@ func attach_piece(piece):
 		return
 
 	if find_piece(piece.type) == false:
-		piece.change_parent(piece_holder)
-		piece.set_piece_position(slot_array[slot_index].position, slot_index)
-		piece.set_attached(slot_index)
+		piece.attach(piece_holder, slot_array[slot_index].position, slot_index)
 		slot_array[slot_index].piece = piece
 		slot_array[slot_index].collider.disabled = false
 		emit_signal("piece_attached", piece)
@@ -55,8 +54,7 @@ func de_attach_piece(piece):
 	if find_piece(piece.type) == true:
 		slot_array[piece.attached_slot].collider.disabled = true
 		slot_array[piece.attached_slot].piece = null
-		piece.change_parent($"/root/Level")
-		piece.destroy()
+		piece.reset()
 		emit_signal("piece_de_attached", piece)
 
 #returns the index of an available slot, if there are no slots available it returns -1

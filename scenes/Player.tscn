@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://script/power_up/PowerUpBehaviour.gd" type="Script" id=2]
@@ -14,9 +14,11 @@
 [ext_resource path="res://assets/sfx/click.wav" type="AudioStream" id=12]
 [ext_resource path="res://script/player/PlayerLogic.gd" type="Script" id=13]
 [ext_resource path="res://script/SoundPlayer.gd" type="Script" id=14]
+[ext_resource path="res://script/CoinDisplayer.gd" type="Script" id=15]
+[ext_resource path="res://scenes/ui/UICoin.tscn" type="PackedScene" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 32 )
+extents = Vector2( 15, 31 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 16 )
@@ -45,9 +47,24 @@ position = Vector2( 728, 408 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 9 )
 
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_top = -24.0
+margin_right = 24.0
+margin_bottom = -24.0
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+coin_scene = ExtResource( 16 )
+separation = 38.0
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -64 )
 current = true
+zoom = Vector2( 1.1, 1.1 )
 smoothing_enabled = true
 smoothing_speed = 10.0
 
@@ -69,6 +86,7 @@ position = Vector2( 0, -16 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
 animation = "idle"
+frame = 1
 playing = true
 
 [node name="PieceHolder" type="Node2D" parent="."]
@@ -95,9 +113,7 @@ margin_top = -136.0
 margin_right = 136.0
 margin_bottom = -63.0
 custom_fonts/font = SubResource( 3 )
-text = "Click!
-
-Press space to go to the next level"
+text = "Press space to go to the next level"
 align = 1
 autowrap = true
 __meta__ = {

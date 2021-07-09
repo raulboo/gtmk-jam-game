@@ -2,11 +2,9 @@ extends Node2D
 
 export(GlobalScript.PieceType) var type
 
-onready var player_piece_controller = get_node("/root/Level/Player/PowerUpAttacher")
-
 var prefer_slot = 1
-var spawn_position
 var attached_slot = -1
+var spawn_position
 
 func _ready():
 	$Sprite.play(GlobalScript.PieceType.keys()[type])
@@ -24,21 +22,26 @@ func hardcode_positions():
 		GlobalScript.PieceType.GRAVITY:
 			prefer_slot = 1
 
-			#destroys the piece
-func destroy():
-	queue_free()
+#attaches and configures the piece
+func attach(parent, position, index):
+	change_parent(parent)
+	move_to(position)
+	set_piece_rotation(index)
+	attached_slot = index
+
+#resets the piece
+func reset():
+	change_parent($"/root/Level")
+	move_to(spawn_position)
+	attached_slot = -1
 
 #orientates the sprite accordingly
-func set_piece_position(position, slot_index):
+func set_piece_rotation(slot_index):
 	$Sprite.rotation_degrees = -90 + (slot_index * 90) 
-	self.position = position
 
 #change global position of this piece, useful later for animation
 func move_to (pos):
-	self.global_position = pos
-
-func set_attached(index):
-	attached_slot = index
+	self.position = pos
 
 #change this piece parent
 func change_parent(parent_node):
@@ -47,4 +50,5 @@ func change_parent(parent_node):
 
 func on_body_entered(body):
 	if body.is_in_group("player") && attached_slot == -1:
+		var player_piece_controller = body.get_node("PowerUpAttacher")
 		player_piece_controller.call_deferred("attach_piece", self)
