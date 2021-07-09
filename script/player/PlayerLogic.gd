@@ -6,6 +6,7 @@ onready var kinematic_body = $"../"
 onready var sound_player = $"../SoundPlayer"
 onready var coin_displayer = $"../CanvasLayer/HBoxContainer"
 onready var power_up_attacher = $"../PowerUpAttacher"
+onready var power_up_behaviour = $"../PowerUpBehaviour"
 
 var spawn_position
 var coin_count = 0
@@ -21,7 +22,6 @@ func add_coin():
 	coin_count += 1
 	coin_displayer.add_coin()
 
-#iterates player collisions and checks for any "hostile"
 func check_hostile_collisions():
 	for slide_index in kinematic_body.get_slide_count():
 		var object = kinematic_body.get_slide_collision(slide_index).collider
@@ -30,8 +30,8 @@ func check_hostile_collisions():
 
 func die():
 	sound_player.play_sfx("death")
-	$"../PowerUpAttacher".de_attach_all_pieces()
-	$"../PowerUpBehaviour".reset_gravity()
+	power_up_attacher.de_attach_all_pieces()
+	power_up_behaviour.reset_gravity()
 	emit_signal("player_dead")
 
 func reset():
