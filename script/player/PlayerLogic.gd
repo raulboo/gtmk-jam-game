@@ -9,18 +9,12 @@ onready var power_up_attacher = $"../PowerUpAttacher"
 onready var power_up_behaviour = $"../PowerUpBehaviour"
 
 var spawn_position
-var coin_count = 0
 
 func _ready():
 	spawn_position = kinematic_body.position
-	coin_count = 0
 
 func _physics_process(_delta):
 	check_hostile_collisions()
-
-func add_coin():
-	coin_count += 1
-	coin_displayer.add_coin()
 
 func check_hostile_collisions():
 	for slide_index in kinematic_body.get_slide_count():
@@ -35,7 +29,5 @@ func die():
 	emit_signal("player_dead")
 
 func reset():
-	coin_count = 0
-	coin_displayer.reset()
 	power_up_attacher.de_attach_all_pieces()
 	kinematic_body.position = spawn_position

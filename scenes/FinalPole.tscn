@@ -1,17 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/props/final_pole/FinalPole.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://script/FinalPole.gd" type="Script" id=2]
-[ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/sfx/no.mp3" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
-
-[sub_resource type="DynamicFont" id=2]
-outline_size = 4
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 3 )
 
 [node name="FinalPole" type="Node2D"]
 script = ExtResource( 2 )
@@ -30,20 +24,5 @@ playing = true
 
 [node name="NopeSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
-
-[node name="Label" type="Label" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -112.0
-margin_top = -64.0
-margin_right = 128.0
-margin_bottom = -48.0
-custom_fonts/font = SubResource( 2 )
-text = "Needs 10 Coins!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="body_shape_entered" from="Area2D" to="." method="body_entered"]
