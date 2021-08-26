@@ -8,7 +8,7 @@ export(MusicManager.Loops) var music_loop = 1
 var blocked = false
 
 func _ready():
-	$Player/PlayerLogic.connect("player_dead", self, "on_player_dead")
+	var _r = $Player/PlayerLogic.connect("player_dead", self, "on_player_dead")
 	$Player/WinLabel.visible = false
 	MusicManager.switch_loop(music_loop)
 

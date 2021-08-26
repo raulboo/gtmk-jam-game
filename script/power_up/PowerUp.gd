@@ -6,10 +6,19 @@ var prefer_slot = 1
 var attached_slot = -1
 var spawn_position
 
+onready var timer = $Timer
+onready var sprite = $Sprite
+
 func _ready():
 	$Sprite.play(GlobalScript.PieceType.keys()[type])
 	spawn_position = self.global_position
 	hardcode_positions()
+
+func _process(_delta):
+	if timer.time_left > 0.01:
+		var r = (timer.time_left / timer.wait_time)
+		sprite.modulate.a = r
+
 
 #preferable positions for the power-up
 func hardcode_positions():
@@ -52,3 +61,12 @@ func on_body_entered(body):
 	if body.is_in_group("player") && attached_slot == -1:
 		var player_piece_controller = body.get_node("PowerUpAttacher")
 		player_piece_controller.call_deferred("attach_piece", self)
+
+func destroy_in(seconds):
+	timer.start(seconds)
+
+func timer_timeout():
+	sprite.modulate.a = 1
+	if attached_slot != -1:
+		var pu_attacher = get_node("../../PowerUpAttacher")
+		pu_attacher.de_attach_piece(self)

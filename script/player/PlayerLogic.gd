@@ -4,7 +4,6 @@ signal player_dead()
 
 onready var kinematic_body = $"../"
 onready var sound_player = $"../SoundPlayer"
-onready var coin_displayer = $"../CanvasLayer/HBoxContainer"
 onready var power_up_attacher = $"../PowerUpAttacher"
 onready var power_up_behaviour = $"../PowerUpBehaviour"
 
@@ -23,6 +22,9 @@ func check_hostile_collisions():
 			die()
 
 func die():
+	if !power_up_behaviour.can_die:
+		return
+		
 	sound_player.play_sfx("death")
 	power_up_attacher.de_attach_all_pieces()
 	power_up_behaviour.reset_gravity()

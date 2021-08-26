@@ -5,15 +5,16 @@ onready var piece_holder = $PieceHolder
 onready var r_collider = $RightCollider
 onready var l_collider = $LeftCollider
 
-export(float) var acceleration_speed = 0.25
-export(float) var de_acceleration = 0.5
-export(float) var max_walking_speed = 300
-export(float) var max_running_speed = 450
-export(float) var jump_force = 900
-export(float) var gravity_force = 4000
+export(float) var ACCELERATION_SPEED = 0.25
+export(float) var DE_ACCELERATION_SPEED = 0.5
+export(float) var MAX_WALKING_SPEED = 300
+export(float) var MAX_RUNNING_SPEED = 450
+export(float) var JUMP_FORCE = 900
+export(float) var GRAVITY_FORCE = 4000
 
 var velocity = Vector2.ZERO
-var current_max_speed = max_walking_speed
+var current_max_speed = MAX_WALKING_SPEED
+var current_gravity_force = GRAVITY_FORCE
 
 var facing_direction = 1
 var gravity_direction = 0
@@ -22,12 +23,12 @@ var moving_input = 0
 var jump_input = false
 
 func _physics_process(delta):
-	get_input()
-	move(delta)
+	process_input()
+	process_movement(delta)
 	calculate_animations()
 	calculate_directions()
 
-func get_input():
+func process_input():
 	moving_input = 0
 	if Input.is_action_pressed("move_right"):
 		moving_input = 1
@@ -39,16 +40,16 @@ func get_input():
 		jump_input = true
 
 #physics calculations
-func move(delta):
+func process_movement(delta):
 	if  moving_input != 0:
-		velocity.x = lerp(velocity.x, moving_input * current_max_speed, acceleration_speed)
+		velocity.x = lerp(velocity.x, moving_input * current_max_speed, ACCELERATION_SPEED)
 	elif moving_input == 0 and is_on_floor():
-		velocity.x = lerp(velocity.x, 0, de_acceleration)
+		velocity.x = lerp(velocity.x, 0, DE_ACCELERATION_SPEED)
 
-	velocity.y += gravity_force * delta
+	velocity.y += current_gravity_force * delta
 
 	if jump_input and is_on_floor():
-		velocity.y = -jump_force * gravity_direction
+		velocity.y = -JUMP_FORCE * gravity_direction
 
 	if(abs(velocity.x) < 1):
 		velocity.x = 0
@@ -69,7 +70,7 @@ func calculate_animations():
 
 #calculate facing direction and gravity direction
 func calculate_directions():
-	gravity_direction = sign(gravity_force)
+	gravity_direction = sign(current_gravity_force)
 
 	if velocity.x != 0:
 		facing_direction = sign(velocity.x)

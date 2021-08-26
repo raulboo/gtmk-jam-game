@@ -1,2 +1,2 @@
 extends Node
-enum PieceType {SLINGSHOT, LEGS, GRAVITY}
+enum PieceType {SLINGSHOT, LEGS, GRAVITY, RAINBOW}

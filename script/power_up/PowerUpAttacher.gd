@@ -1,7 +1,7 @@
 extends Node
 
 signal piece_attached(type_string)
-signal piece_de_attached(type_string)
+signal piece_de_attached(type_string, slot)
 
 onready var player = $"../"
 onready var piece_holder = $"../PieceHolder"
@@ -37,6 +37,14 @@ func create_slots(piece_spawn):
 
 	slot_array = [left, up, right]
 
+func add_to_slot(slot, piece):
+	slot_array[slot].piece = piece
+	slot_array[slot].collider.disabled = false
+
+func remove_from_slot(slot):
+	slot_array[slot].collider.disabled = true
+	slot_array[slot].piece = null
+
 #add a new piece to the player
 func attach_piece(piece):
 	var slot_index = get_avaiable_slot(piece)
@@ -45,17 +53,27 @@ func attach_piece(piece):
 
 	if find_piece(piece.type) == false:
 		piece.attach(piece_holder, slot_array[slot_index].position, slot_index)
-		slot_array[slot_index].piece = piece
-		slot_array[slot_index].collider.disabled = false
+		add_to_slot(slot_index, piece)
 		emit_signal("piece_attached", piece)
 	
 #removes the selected piece
 func de_attach_piece(piece):
 	if find_piece(piece.type) == true:
-		slot_array[piece.attached_slot].collider.disabled = true
-		slot_array[piece.attached_slot].piece = null
+		var slot = piece.attached_slot
+		remove_from_slot(slot)
 		piece.reset()
-		emit_signal("piece_de_attached", piece)
+		emit_signal("piece_de_attached", piece, slot)
+
+func switch_slots(from, to):
+	if has_piece_at(to) || !has_piece_at(from):
+		return
+
+	var piece = slot_array[from].piece
+
+	remove_from_slot(from)
+
+	piece.attach(piece_holder, slot_array[to].position, to)
+	add_to_slot(to, piece)
 
 #returns the index of an available slot, if there are no slots available it returns -1
 func get_avaiable_slot(piece):
@@ -88,11 +106,11 @@ func get_piece(piece_type_enum):
 	return null
 
 #returns true/false if the piece exists
-func find_piece(piece_type_enum):
+func find_piece(piece_type_enum) -> bool:
 	return get_piece(piece_type_enum) != null
 
 #returns true if the player has a piece on 'slot'
-func has_piece_at(slot):
+func has_piece_at(slot) -> bool:
 	if slot < slot_array.size():
 		return slot_array[slot].piece != null
 	return false
