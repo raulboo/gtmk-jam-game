@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/props/final_pole/FinalPole.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=2]
@@ -17,7 +17,23 @@ size = 32
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="Animation" id=3]
+resource_name = "Blink"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ -1, 0 ]
+}
+
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -26,8 +42,8 @@ animations = [ {
 } ]
 
 [node name="MainMenu" type="MarginContainer"]
-margin_right = 1024.0
-margin_bottom = 600.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -35,25 +51,27 @@ __meta__ = {
 first_level = ExtResource( 9 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_right = 1280.0
+margin_bottom = 720.0
 color = Color( 0.339621, 0.210663, 0.457031, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_right = 1280.0
+margin_bottom = 720.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 176.0
-margin_top = 258.0
-margin_right = 848.0
-margin_bottom = 342.0
+margin_left = 304.0
+margin_top = 309.0
+margin_right = 976.0
+margin_bottom = 411.0
+custom_constants/separation = 22
+alignment = 1
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
 margin_right = 672.0
@@ -65,9 +83,9 @@ custom_constants/shadow_offset_y = 8
 text = "Make it Click!"
 
 [node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_top = 52.0
+margin_top = 70.0
 margin_right = 672.0
-margin_bottom = 84.0
+margin_bottom = 102.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
@@ -76,28 +94,33 @@ text = "Press Space "
 align = 1
 valign = 1
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CenterContainer/VBoxContainer/Label2"]
+autoplay = "Blink"
+anims/Blink = SubResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 360, 464 )
+scale = Vector2( 2, 2 )
+frames = ExtResource( 2 )
+animation = "dancing"
+frame = 1
+playing = true
+
+[node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
+position = Vector2( 840, 456 )
+scale = Vector2( 2, 2 )
+frames = ExtResource( 1 )
+frame = 1
+playing = true
+
+[node name="AnimatedSprite3" type="AnimatedSprite" parent="."]
+position = Vector2( 616, 456 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 4 )
+
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2( 0, -56 )
+position = Vector2( 120, 16 )
 tile_set = ExtResource( 6 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( 983046, 0, 0, 983047, 0, 1, 983048, 0, 2, 983054, 1, 0, 983055, 1, 1, 983056, 1, 2, 983061, 2, 0, 983062, 2, 1, 983063, 2, 2, 1048582, 0, 65536, 1048583, 0, 65537, 1048584, 0, 65538, 1048590, 1, 65536, 1048591, 1, 65537, 1048592, 1, 65538, 1048597, 2, 65536, 1048598, 2, 65537, 1048599, 2, 65538, 1114118, 0, 131072, 1114119, 0, 131073, 1114120, 0, 131074, 1114126, 1, 131072, 1114127, 1, 131073, 1114128, 1, 131074, 1114133, 2, 131072, 1114134, 2, 131073, 1114135, 2, 131074 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 240, 392 )
-scale = Vector2( 2, 2 )
-frames = ExtResource( 2 )
-animation = "dancing"
-frame = 4
-playing = true
-
-[node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
-position = Vector2( 720, 384 )
-scale = Vector2( 2, 2 )
-frames = ExtResource( 1 )
-playing = true
-
-[node name="AnimatedSprite3" type="AnimatedSprite" parent="."]
-position = Vector2( 496, 384 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 3 )

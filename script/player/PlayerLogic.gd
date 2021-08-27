@@ -15,6 +15,9 @@ func _ready():
 func _physics_process(_delta):
 	check_hostile_collisions()
 
+	if Input.is_action_just_pressed("reset_level"):
+		power_up_attacher.de_attach_all_pieces()
+
 func check_hostile_collisions():
 	for slide_index in kinematic_body.get_slide_count():
 		var object = kinematic_body.get_slide_collision(slide_index).collider

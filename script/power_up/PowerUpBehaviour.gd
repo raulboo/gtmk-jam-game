@@ -4,7 +4,10 @@ onready var player_movement = $"../"
 onready var power_up_attacher = $"../PowerUpAttacher"
 onready var sound_player = $"../SoundPlayer"
 
-const RAINBOW_PIECE_TIMEOUT = 3
+const RAINBOW_PIECE_TIMEOUT = 10
+
+const SPEED_UP_PIECE_MULTIPLIER = 1.2
+const SPEED_UP_PIECE_TIMEOUT = 4
 
 export(float) var rope_momentum = 1500
 var can_die = true
@@ -12,22 +15,31 @@ var can_die = true
 func on_piece_attached(piece):
 	sound_player.play_sfx("click")
 
-	if piece.type == GlobalScript.PieceType.RAINBOW:
+	if piece.type == GlobalScript.PieceType.INMORTAL:
 		piece.destroy_in(RAINBOW_PIECE_TIMEOUT)
 		can_die = false
+
+	if piece.type == GlobalScript.PieceType.SPEED_BOOST:
+		piece.destroy_in(SPEED_UP_PIECE_TIMEOUT)
+		player_movement.speed_multiplier = SPEED_UP_PIECE_MULTIPLIER
 	
 func on_piece_de_attached(piece, slot):
 	sound_player.play_sfx("click")
 
+	piece.reset_timer()
+
 	if piece.type == GlobalScript.PieceType.GRAVITY:
 		reset_gravity()
 
-	if piece.type == GlobalScript.PieceType.RAINBOW:
+	if piece.type == GlobalScript.PieceType.INMORTAL:
 		can_die = true
 
-	if slot == 2 and power_up_attacher.find_piece(GlobalScript.PieceType.LEGS):
+	if slot == 2 && power_up_attacher.find_piece(GlobalScript.PieceType.LEGS):
 		var legs = power_up_attacher.get_piece(GlobalScript.PieceType.LEGS)
 		power_up_attacher.switch_slots(legs.attached_slot, 2)
+
+	if piece.type == GlobalScript.PieceType.SPEED_BOOST:
+		player_movement.speed_multiplier = 1
 
 func _input(event):
 	#gravity

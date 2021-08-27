@@ -8,14 +8,16 @@ var spawn_position
 
 onready var timer = $Timer
 onready var sprite = $Sprite
+onready var label = $Label
 
 func _ready():
-	$Sprite.play(GlobalScript.PieceType.keys()[type])
-	spawn_position = self.global_position
+	sprite.play(GlobalScript.PieceType.keys()[type])
 	hardcode_positions()
+	spawn_position = self.global_position
 
 func _process(_delta):
 	if timer.time_left > 0.01:
+		label.text = str(stepify(timer.time_left, 1))
 		var r = (timer.time_left / timer.wait_time)
 		sprite.modulate.a = r
 
@@ -41,12 +43,13 @@ func attach(parent, position, index):
 #resets the piece
 func reset():
 	change_parent($"/root/Level")
+	self.rotation_degrees = 0
 	move_to(spawn_position)
 	attached_slot = -1
 
 #orientates the sprite accordingly
 func set_piece_rotation(slot_index):
-	$Sprite.rotation_degrees = -90 + (slot_index * 90) 
+	self.rotation_degrees = -90 + (slot_index * 90) 
 
 #change global position of this piece, useful later for animation
 func move_to (pos):
@@ -63,10 +66,16 @@ func on_body_entered(body):
 		player_piece_controller.call_deferred("attach_piece", self)
 
 func destroy_in(seconds):
+	label.visible = true
 	timer.start(seconds)
 
-func timer_timeout():
+func reset_timer():
+	timer.stop()
+	label.visible = false
 	sprite.modulate.a = 1
 	if attached_slot != -1:
 		var pu_attacher = get_node("../../PowerUpAttacher")
 		pu_attacher.de_attach_piece(self)
+
+func timer_timeout():
+	reset_timer()

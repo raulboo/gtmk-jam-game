@@ -16,10 +16,10 @@
 [ext_resource path="res://script/SoundPlayer.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 31 )
+extents = Vector2( 15.55, 31 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16, 16 )
+extents = Vector2( 15.55, 15 )
 
 [sub_resource type="DynamicFont" id=3]
 outline_size = 4

@@ -8,13 +8,13 @@ onready var l_collider = $LeftCollider
 export(float) var ACCELERATION_SPEED = 0.25
 export(float) var DE_ACCELERATION_SPEED = 0.5
 export(float) var MAX_WALKING_SPEED = 300
-export(float) var MAX_RUNNING_SPEED = 450
 export(float) var JUMP_FORCE = 900
 export(float) var GRAVITY_FORCE = 4000
 
 var velocity = Vector2.ZERO
 var current_max_speed = MAX_WALKING_SPEED
 var current_gravity_force = GRAVITY_FORCE
+var speed_multiplier = 1
 
 var facing_direction = 1
 var gravity_direction = 0
@@ -42,7 +42,7 @@ func process_input():
 #physics calculations
 func process_movement(delta):
 	if  moving_input != 0:
-		velocity.x = lerp(velocity.x, moving_input * current_max_speed, ACCELERATION_SPEED)
+		velocity.x = lerp(velocity.x, moving_input * current_max_speed * speed_multiplier, ACCELERATION_SPEED)
 	elif moving_input == 0 and is_on_floor():
 		velocity.x = lerp(velocity.x, 0, DE_ACCELERATION_SPEED)
 
