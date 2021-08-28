@@ -50,7 +50,7 @@ func _input(event):
 			invert_gravity()
 			
 	#rope
-	if event.is_action_pressed("trigger_slingshot") and power_up_attacher.find_piece(GlobalScript.PieceType.SLINGSHOT):
+	if event.is_action_pressed("shift") and power_up_attacher.find_piece(GlobalScript.PieceType.SLINGSHOT):
 		use_slingshot()
 		
 func invert_gravity():

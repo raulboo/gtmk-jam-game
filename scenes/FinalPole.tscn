@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/props/final_pole/FinalPole.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://script/FinalPole.gd" type="Script" id=2]
+[ext_resource path="res://scripts/FinalPole.gd" type="Script" id=2]
 [ext_resource path="res://assets/sfx/no.mp3" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]

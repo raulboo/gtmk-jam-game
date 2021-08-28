@@ -1,9 +1,10 @@
-extends KinematicBody2D
+extends Node
 
-onready var animated_sprite = $AnimatedSprite
-onready var piece_holder = $PieceHolder
-onready var r_collider = $RightCollider
-onready var l_collider = $LeftCollider
+onready var kinematic_body = get_parent()
+onready var animated_sprite = $"../AnimatedSprite"
+onready var piece_holder = $"../PieceHolder"
+onready var r_collider = $"../RightCollider"
+onready var l_collider = $"../LeftCollider"
 
 export(float) var ACCELERATION_SPEED = 0.25
 export(float) var DE_ACCELERATION_SPEED = 0.5
@@ -43,18 +44,18 @@ func process_input():
 func process_movement(delta):
 	if  moving_input != 0:
 		velocity.x = lerp(velocity.x, moving_input * current_max_speed * speed_multiplier, ACCELERATION_SPEED)
-	elif moving_input == 0 and is_on_floor():
+	elif moving_input == 0 and kinematic_body.is_on_floor():
 		velocity.x = lerp(velocity.x, 0, DE_ACCELERATION_SPEED)
 
 	velocity.y += current_gravity_force * delta
 
-	if jump_input and is_on_floor():
+	if jump_input and kinematic_body.is_on_floor():
 		velocity.y = -JUMP_FORCE * gravity_direction
 
 	if(abs(velocity.x) < 1):
 		velocity.x = 0
 	
-	velocity = move_and_slide(velocity, Vector2(0, -gravity_direction))
+	velocity = kinematic_body.move_and_slide(velocity, Vector2(0, -gravity_direction))
 
 #plays the proper animations
 func calculate_animations():
@@ -63,7 +64,7 @@ func calculate_animations():
 			flip_to(facing_direction)
 		
 		animated_sprite.play("walking")
-	elif !is_on_floor():
+	elif !kinematic_body.is_on_floor():
 		animated_sprite.play("jump")
 	else:
 		animated_sprite.play("idle")

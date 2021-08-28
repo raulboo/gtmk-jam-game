@@ -18,6 +18,7 @@ func _process(_delta):
 
 func on_player_dead():
 	$Player/PlayerLogic.reset()
+	PowerUpInterface.restore_all_pieces(true)
 
 func on_player_reached_final_pole():
 
