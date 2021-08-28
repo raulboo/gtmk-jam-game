@@ -13,7 +13,7 @@ onready var label = $Label
 func _ready():
 	sprite.play(GlobalScript.PieceType.keys()[type])
 	hardcode_positions()
-	spawn_position = self.global_position
+	spawn_position = transform.origin
 
 func _process(_delta):
 	if timer.time_left > 0.01:

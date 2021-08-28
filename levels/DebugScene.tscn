@@ -19,22 +19,22 @@ position = Vector2( 248, 616 )
 position = Vector2( 1021.86, 558.3 )
 
 [node name="PowerUp" parent="." instance=ExtResource( 5 )]
-position = Vector2( 397.859, 598.3 )
+position = Vector2( 413.859, 598.3 )
 
 [node name="PowerUp2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 461.859, 598.3 )
 type = 1
 
 [node name="PowerUp4" parent="." instance=ExtResource( 5 )]
-position = Vector2( 589.859, 598.3 )
+position = Vector2( 557.859, 598.3 )
 type = 3
 
 [node name="PowerUp3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 653.859, 598.3 )
+position = Vector2( 509.859, 598.3 )
 type = 2
 
 [node name="PowerUp5" parent="." instance=ExtResource( 5 )]
-position = Vector2( 525.859, 598.3 )
+position = Vector2( 605.859, 598.3 )
 type = 4
 
 [node name="SFX" type="Node" parent="."]

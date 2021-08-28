@@ -18,6 +18,11 @@ animations = [ {
 "name": "INMORTAL",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 7 ) ],
+"loop": false,
+"name": "SPEED_BOOST",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": false,
 "name": "GRAVITY",
@@ -31,11 +36,6 @@ animations = [ {
 "frames": [ ExtResource( 3 ) ],
 "loop": false,
 "name": "SLINGSHOT",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": false,
-"name": "SPEED_BOOST",
 "speed": 5.0
 } ]
 
