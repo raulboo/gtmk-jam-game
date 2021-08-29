@@ -5,6 +5,7 @@ var sound_player = GlobalScript.player_main_node.get_node("SoundPlayer")
 var player_attacher = GlobalScript.player_main_node.get_node("PowerUpAttacher")
 
 const ROPE_MOMENTUM = 1500
+const ANGLE = 60
 
 var _enabled: bool = false
 
@@ -29,7 +30,7 @@ func _input(event):
 func use_slingshot():
 	sound_player.play_sfx("slingshot")
 
-	var degrees = 1.22 #(around 70 degrees)
+	var degrees = deg2rad(ANGLE)
 	player_movement.velocity = Vector2(cos(degrees) * player_movement.facing_direction, \
 										sin(-degrees) * player_movement.gravity_direction) * ROPE_MOMENTUM
 

@@ -37,7 +37,7 @@ func process_input():
 		moving_input = -1
 
 	jump_input = false
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_pressed("jump"):
 		jump_input = true
 
 #physics calculations

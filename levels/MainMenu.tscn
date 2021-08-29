@@ -1,14 +1,23 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/props/final_pole/finalpole_animation.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/player/player_animations.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://assets/fonts/default_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/fonts/LycheeSoda.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=5]
 [ext_resource path="res://assets/box_tilemap/scene_tilemap.tres" type="TileSet" id=6]
+[ext_resource path="res://levels/season_1/level_1.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/pieces_textures/pieces2.png" type="Texture" id=8]
-[ext_resource path="res://levels/DebugScene.tscn" type="PackedScene" id=9]
 
-[sub_resource type="Animation" id=1]
-resource_name = "Blink"
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=3]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:visible_characters")
@@ -23,7 +32,7 @@ tracks/0/keys = {
 "values": [ -1, 0 ]
 }
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -31,14 +40,14 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="MainMenu" type="MarginContainer"]
+[node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-first_level = ExtResource( 9 )
+first_level = ExtResource( 7 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1280.0
@@ -51,11 +60,14 @@ __meta__ = {
 [node name="Control" type="Control" parent="."]
 margin_right = 1280.0
 margin_bottom = 720.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VersionLabel" type="Label" parent="Control"]
 margin_left = 4.0
 margin_top = 4.0
-rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 4
@@ -64,71 +76,72 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-margin_right = 1280.0
-margin_bottom = 720.0
-
 [node name="CenterContainer" type="CenterContainer" parent="."]
-margin_right = 1280.0
-margin_bottom = 720.0
+anchor_right = 1.0
+margin_top = 200.0
+margin_bottom = 161.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 597.0
-margin_top = 335.0
-margin_right = 682.0
-margin_bottom = 385.0
-custom_constants/separation = 22
+margin_left = 284.0
+margin_right = 996.0
+margin_bottom = 176.0
+custom_constants/separation = -16
 alignment = 1
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_right = 85.0
-margin_bottom = 14.0
+margin_right = 712.0
+margin_bottom = 128.0
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 8
 custom_constants/shadow_offset_y = 8
-text = "Make it Click!"
+text = "MAKE IT CLICK"
+align = 1
 
 [node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_top = 36.0
-margin_right = 85.0
-margin_bottom = 50.0
+margin_top = 112.0
+margin_right = 712.0
+margin_bottom = 176.0
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 4
-custom_constants/shadow_offset_y = 4
-text = "Press Space "
+custom_constants/shadow_offset_x = 8
+custom_constants/shadow_offset_y = 8
+text = "Press Space"
 align = 1
-valign = 1
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CenterContainer/VBoxContainer/Label2"]
 autoplay = "Blink"
-anims/Blink = SubResource( 1 )
+anims/Blink = SubResource( 3 )
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2( 136, -32 )
+tile_set = ExtResource( 6 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 983046, 0, 0, 983047, 0, 1, 983048, 0, 2, 983054, 1, 0, 983055, 1, 1, 983056, 1, 2, 983061, 2, 0, 983062, 2, 1, 983063, 2, 2, 1048582, 0, 65536, 1048583, 0, 65537, 1048584, 0, 65538, 1048590, 1, 65536, 1048591, 1, 65537, 1048592, 1, 65538, 1048597, 2, 65536, 1048598, 2, 65537, 1048599, 2, 65538, 1114118, 0, 131072, 1114119, 0, 131073, 1114120, 0, 131074, 1114126, 1, 131072, 1114127, 1, 131073, 1114128, 1, 131074, 1114133, 2, 131072, 1114134, 2, 131073, 1114135, 2, 131074 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 360, 464 )
+position = Vector2( 376, 416 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 2 )
 animation = "dancing"
-frame = 6
+frame = 2
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
-position = Vector2( 840, 456 )
+position = Vector2( 856, 408 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
 frame = 1
 playing = true
 
 [node name="AnimatedSprite3" type="AnimatedSprite" parent="."]
-position = Vector2( 616, 456 )
+position = Vector2( 632, 408 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 2 )
-
-[node name="TileMap" type="TileMap" parent="."]
-position = Vector2( 120, 16 )
-tile_set = ExtResource( 6 )
-cell_size = Vector2( 32, 32 )
-format = 1
-tile_data = PoolIntArray( 983046, 0, 0, 983047, 0, 1, 983048, 0, 2, 983054, 1, 0, 983055, 1, 1, 983056, 1, 2, 983061, 2, 0, 983062, 2, 1, 983063, 2, 2, 1048582, 0, 65536, 1048583, 0, 65537, 1048584, 0, 65538, 1048590, 1, 65536, 1048591, 1, 65537, 1048592, 1, 65538, 1048597, 2, 65536, 1048598, 2, 65537, 1048599, 2, 65538, 1114118, 0, 131072, 1114119, 0, 131073, 1114120, 0, 131074, 1114126, 1, 131072, 1114127, 1, 131073, 1114128, 1, 131074, 1114133, 2, 131072, 1114134, 2, 131073, 1114135, 2, 131074 )
+frames = SubResource( 4 )

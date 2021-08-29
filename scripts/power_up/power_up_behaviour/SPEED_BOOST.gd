@@ -5,7 +5,7 @@ var sound_player = GlobalScript.player_main_node.get_node("SoundPlayer")
 
 var _enabled: bool = false
 
-const SPEED_UP_PIECE_MULTIPLIER = 1.2
+const SPEED_UP_PIECE_MULTIPLIER = 1.6
 const SPEED_UP_PIECE_TIMEOUT = 4
 
 func attached():

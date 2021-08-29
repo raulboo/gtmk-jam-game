@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/pieces_textures/pieces2.png" type="Texture" id=1]
 [ext_resource path="res://scripts/power_up/PowerUp.gd" type="Script" id=2]
 [ext_resource path="res://assets/pieces_textures/pieces4.png" type="Texture" id=3]
 [ext_resource path="res://assets/pieces_textures/pieces3.png" type="Texture" id=4]
 [ext_resource path="res://assets/pieces_textures/pieces7.png" type="Texture" id=5]
+[ext_resource path="res://assets/fonts/LycheeSoda.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/pieces_textures/pieces8.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -17,28 +18,34 @@ animations = [ {
 "name": "LEGS",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": false,
-"name": "INMORTAL",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": false,
 "name": "SLINGSHOT",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": false,
-"name": "SPEED_BOOST",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
 "loop": false,
 "name": "GRAVITY",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "INMORTAL",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": false,
+"name": "SPEED_BOOST",
+"speed": 5.0
 } ]
 
-[node name="PowerUp" type="Node2D"]
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 6 )
+
+[node name="PowerUp" type="Node2D" groups=[
+"power_up",
+]]
 script = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -60,11 +67,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -7.0
-margin_right = 20.0
-margin_bottom = 7.0
-text = "6"
+margin_left = -15.0
+margin_top = -24.0
+margin_right = 15.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "5"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

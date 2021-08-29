@@ -2,7 +2,7 @@ extends Node2D
 
 export(GlobalScript.PieceType) var type
 
-var enabled:bool = true
+export(bool) var enabled = true
 var prefer_slot:int = 1
 var attached_slot:int = -1
 var spawn_position:Vector2 = Vector2.ZERO
@@ -33,10 +33,7 @@ func _ready():
 	#define positions
 	_hardcode_positions()
 	spawn_position = transform.origin
-
-	#adds itself to the powerup interface array
-	PowerUpInterface.power_ups_array.append(self)
-
+	
 func _process(_delta):
 	if timer.time_left > 0.01:
 		label.text = str(stepify(timer.time_left, 1))

@@ -1,4 +1,4 @@
-extends MarginContainer
+extends Control
 
 export(PackedScene) var first_level
 
@@ -12,4 +12,4 @@ func _process(_delta):
 		var _scene = get_tree().change_scene_to(first_level)
 
 func display_version():
-	version_label.text = "ver " + GlobalScript.game_version
+	version_label.text = "ver. " + GlobalScript.game_version
