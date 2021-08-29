@@ -1,23 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/props/final_pole/FinalPole.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://assets/player/Player.tres" type="SpriteFrames" id=2]
-[ext_resource path="res://assets/ui/m04fatal_fury/m04.TTF" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/props/final_pole/finalpole_animation.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://assets/player/player_animations.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=5]
-[ext_resource path="res://assets/box_tilemap/tileset_box-tilemap2.tres" type="TileSet" id=6]
-[ext_resource path="res://assets/pieces/pieces2.png" type="Texture" id=8]
+[ext_resource path="res://assets/box_tilemap/scene_tilemap.tres" type="TileSet" id=6]
+[ext_resource path="res://assets/pieces_textures/pieces2.png" type="Texture" id=8]
 [ext_resource path="res://levels/DebugScene.tscn" type="PackedScene" id=9]
 
-[sub_resource type="DynamicFont" id=1]
-size = 32
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 48
-font_data = ExtResource( 4 )
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "Blink"
 loop = true
 tracks/0/type = "value"
@@ -33,7 +23,7 @@ tracks/0/keys = {
 "values": [ -1, 0 ]
 }
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -66,7 +56,6 @@ margin_bottom = 720.0
 margin_left = 4.0
 margin_top = 4.0
 rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 4
@@ -87,27 +76,25 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 304.0
-margin_top = 309.0
-margin_right = 976.0
-margin_bottom = 411.0
+margin_left = 597.0
+margin_top = 335.0
+margin_right = 682.0
+margin_bottom = 385.0
 custom_constants/separation = 22
 alignment = 1
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_right = 672.0
-margin_bottom = 48.0
-custom_fonts/font = SubResource( 2 )
+margin_right = 85.0
+margin_bottom = 14.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 8
 custom_constants/shadow_offset_y = 8
 text = "Make it Click!"
 
 [node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_top = 70.0
-margin_right = 672.0
-margin_bottom = 102.0
-custom_fonts/font = SubResource( 1 )
+margin_top = 36.0
+margin_right = 85.0
+margin_bottom = 50.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 4
@@ -117,26 +104,27 @@ valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CenterContainer/VBoxContainer/Label2"]
 autoplay = "Blink"
-anims/Blink = SubResource( 3 )
+anims/Blink = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 360, 464 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 2 )
 animation = "dancing"
-frame = 1
+frame = 6
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 840, 456 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
+frame = 1
 playing = true
 
 [node name="AnimatedSprite3" type="AnimatedSprite" parent="."]
 position = Vector2( 616, 456 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 4 )
+frames = SubResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2( 120, 16 )

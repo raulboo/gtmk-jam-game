@@ -24,14 +24,14 @@ func attach_piece(piece) -> void:
 	if slot_index == -1:
 		return
 
-	if find_piece(piece.type) == false:
+	if get_piece(piece.type) == null:
 		_add_to_slot(slot_index, piece)
 		piece.call_attached()
 		emit_signal("attached", piece)
 	
 #removes the selected piece
 func de_attach_piece(piece) -> void:
-	if find_piece(piece.type) == true:
+	if get_piece(piece.type) != null:
 		var slot = piece.attached_slot
 		_remove_from_slot(slot, true)
 		piece.call_de_attached()
@@ -57,10 +57,6 @@ func de_attach_all_pieces() -> void:
 	for slot in slot_array:
 		if slot.piece != null:
 			de_attach_piece(slot.piece)
-
-#returns true/false if the piece exists
-func find_piece(piece_type_enum) -> bool:
-	return get_piece(piece_type_enum) != null
 
 #returns the piece if it exists or null otherwise
 func get_piece(piece_type_enum) -> Node:
@@ -107,7 +103,7 @@ func _remove_from_slot(slot, reset:bool) -> void:
 
 #returns the index of an available slot, if there are no slots available it returns -1
 func _get_avaiable_slot(piece) -> int:
-	if find_piece(piece.type) == false && !_has_piece_at(piece.prefer_slot):
+	if get_piece(piece.type) == null && !_has_piece_at(piece.prefer_slot):
 		return piece.prefer_slot
 	
 	for i in slot_array.size():
