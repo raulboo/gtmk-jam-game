@@ -20,6 +20,7 @@ boot_splash/bg_color=Color( 1, 1, 1, 1 )
 [autoload]
 
 MusicManager="*res://scenes/autoloads/MusicManager.tscn"
+Transitions="*res://addons/transitions/Transitions.gd"
 GlobalScript="*res://scripts/GlobalScript.gd"
 PowerUpInterface="*res://scripts/power_up/PowerUpInterface.gd"
 

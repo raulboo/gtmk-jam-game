@@ -7,12 +7,25 @@ var prefer_slot:int = 1
 var attached_slot:int = -1
 var spawn_position:Vector2 = Vector2.ZERO
 
+var _beahviour_script_loaded: bool = false
+
 onready var timer = $Timer
 onready var sprite = $Sprite
 onready var label = $Label
+onready var behaviour_script_node = $BehaviourScript
 
 func _ready():
 	var name: String = GlobalScript.PieceType.keys()[type]
+
+	#load behaviour script
+	var path: String = "scripts/power_up/power_up_behaviour/"+name+".gd"
+	if ResourceLoader.exists(path):
+		behaviour_script_node.set_script(load(path))
+	else:
+		behaviour_script_node.set_script(load("scripts/power_up/power_up_behaviour/DEFAULT.gd"))
+
+	if behaviour_script_node.get_script() != null:
+		_beahviour_script_loaded = true
 
 	#load texture
 	sprite.play(name)
@@ -65,6 +78,16 @@ func reset_timer():
 	if attached_slot != -1:
 		var pu_attacher = get_node("../../PowerUpAttacher")
 		pu_attacher.de_attach_piece(self)
+
+#calls the attached() function on the behaviour script
+func call_attached():
+	if _beahviour_script_loaded == true:
+		behaviour_script_node.attached()
+
+#calls the de_attached() function on the behaviour script
+func call_de_attached():
+	if _beahviour_script_loaded == true:
+		behaviour_script_node.de_attached()
 
 #preferable positions for the power-up
 func _hardcode_positions():

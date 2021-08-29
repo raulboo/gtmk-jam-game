@@ -1,5 +1,8 @@
 extends Node
 
+signal attached(piece)
+signal de_attached(piece, slot)
+
 onready var piece_holder = $"../PieceHolder"
 
 class Slot:
@@ -11,7 +14,6 @@ var slot_array = []
 
 func _ready():
 	_create_slots($PieceCenter.position)
-	PowerUpInterface.player_attacher = self
 
 #add a new piece to the player
 func attach_piece(piece) -> void:
@@ -24,15 +26,16 @@ func attach_piece(piece) -> void:
 
 	if find_piece(piece.type) == false:
 		_add_to_slot(slot_index, piece)
-		#TODO: call attached()
+		piece.call_attached()
+		emit_signal("attached", piece)
 	
 #removes the selected piece
 func de_attach_piece(piece) -> void:
 	if find_piece(piece.type) == true:
 		var slot = piece.attached_slot
 		_remove_from_slot(slot, true)
-		#TODO: call de_attached()
-
+		piece.call_de_attached()
+		emit_signal("de_attached", piece, slot)
 
 #switches two pieces
 func switch_slots(from, to) -> void:
@@ -45,7 +48,7 @@ func switch_slots(from, to) -> void:
 
 #de attaches the piece (passed as enum)
 func de_attach_piece_enum(piece_type_enum) -> void:
-	var piece = _get_piece(piece_type_enum)
+	var piece = get_piece(piece_type_enum)
 	if piece != null:
 		de_attach_piece(piece)
 
@@ -57,8 +60,15 @@ func de_attach_all_pieces() -> void:
 
 #returns true/false if the piece exists
 func find_piece(piece_type_enum) -> bool:
-	return _get_piece(piece_type_enum) != null
+	return get_piece(piece_type_enum) != null
 
+#returns the piece if it exists or null otherwise
+func get_piece(piece_type_enum) -> Node:
+	for slot in slot_array:
+		if slot.piece != null && slot.piece.type == piece_type_enum:
+			return slot.piece
+	return null
+	
 #hard code slots relative to the player 
 func _create_slots(piece_spawn) -> void:
 	var sprite_piece_size = 32
@@ -105,13 +115,6 @@ func _get_avaiable_slot(piece) -> int:
 			return i
 	
 	return -1
-
-#returns the piece if it exists or null otherwise
-func _get_piece(piece_type_enum) -> Node:
-	for slot in slot_array:
-		if slot.piece != null && slot.piece.type == piece_type_enum:
-			return slot.piece
-	return null
 
 #returns true if the player has a piece on 'slot'
 func _has_piece_at(slot) -> bool:
