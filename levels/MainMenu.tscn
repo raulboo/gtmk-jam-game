@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/props/final_pole/finalpole_animation.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/player/player_animations.tres" type="SpriteFrames" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/box_tilemap/scene_tilemap.tres" type="TileSet" id=6]
 [ext_resource path="res://levels/season_1/level_1.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/pieces_textures/pieces2.png" type="Texture" id=8]
+[ext_resource path="res://scenes/ui/FullscreenButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/ui/MuteButton.tscn" type="PackedScene" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -131,7 +133,7 @@ position = Vector2( 376, 416 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 2 )
 animation = "dancing"
-frame = 2
+frame = 5
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
@@ -145,3 +147,23 @@ playing = true
 position = Vector2( 632, 408 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 4 )
+
+[node name="FullscreenButton" parent="." instance=ExtResource( 9 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -44.0
+margin_top = -38.0
+margin_right = 0.0
+margin_bottom = 0.0
+
+[node name="MuteButton" parent="." instance=ExtResource( 10 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -96.0
+margin_top = -43.0
+margin_right = -52.0
+margin_bottom = -5.0
