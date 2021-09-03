@@ -54,10 +54,24 @@ custom_fonts/font = SubResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 4
-text = "The best player i've ever seen,
-the tutorial is over, good luck!
+text = "Whoa, you are the best player i've ever seen,
+the tutorial is over, good luck!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-(nothing will happen, work in progress)"
+[node name="Label2" type="Label" parent="."]
+margin_left = -130.141
+margin_top = 470.3
+margin_right = 489.859
+margin_bottom = 607.3
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 4
+text = "Some pieces have a timer,
+use them while you can!"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

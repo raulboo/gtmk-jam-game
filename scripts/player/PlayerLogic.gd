@@ -14,21 +14,20 @@ func _ready():
 func _physics_process(_delta):
 	_check_hostile_collisions()
 
-#resets the player position to the spawn and removes all pieces
+	if Input.is_action_just_pressed("reset_level"):
+		_die("click")
+
 func reset():
 	player_node.position = spawn_position
-	#TODO: reset gravity
 	PowerUpInterface.restore_all_pieces(true)
 
 func _check_hostile_collisions():
 	for slide_index in player_node.get_slide_count():
 		var object = player_node.get_slide_collision(slide_index).collider
 		if object.is_in_group("hostile"):
-			_die()
+			if can_die == true:
+				_die("death")
 
-func _die():
-	if can_die == false:
-		return
-		
-	sound_player.play_sfx("death")
+func _die(sound):
+	sound_player.play_sfx(sound)
 	reset()

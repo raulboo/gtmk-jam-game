@@ -12,3 +12,5 @@ func next_level():
 	
 	if ResourceLoader.exists(next_level_path):
 		var _a = get_tree().change_scene(next_level_path)
+	else:
+		var _a = get_tree().change_scene("levels/DebugScene.tscn")
